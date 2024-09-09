@@ -1,5 +1,14 @@
+import Hero from "@/components/Hero";
+import Services from "@/components/Services";
+import WhyUs from "@/components/WhyUs";
 import Image from "next/image";
 
 export default function Home() {
-    return <h1 className="font-bold text-teal-500 text-2xl">Hello world!</h1>;
+    return (
+        <>
+            <Hero />
+            <Services />
+            <WhyUs />
+        </>
+    );
 }
