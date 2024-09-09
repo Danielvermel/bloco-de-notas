@@ -7,7 +7,7 @@ const Navbar = () => {
     return (
         <nav className="flexBetween max-container padding-container relative z-30 py-5">
             <Link href="/">
-                <Image src="/logo_2.jpg" alt="logo" height={150} width={200} />
+                <Image src="/logos/logo_2.jpg" alt="logo" height={150} width={200} />
             </Link>
 
             <ul className="hidden h-full gap-12 lg:flex">
@@ -22,8 +22,16 @@ const Navbar = () => {
                 ))}
             </ul>
             <div className="lg:flexCenter hidden">
-                <Button type="button" title="Contacte-nos" icon="/user.svg" variant="btn_dark_green"></Button>
+                <Button type="button" title="Contacte-nos" icon="/icons/phone.png" variant="btn_dark_green" />
             </div>
+
+            <Image
+                src="/icons/menu.svg"
+                alt="menu"
+                width={32}
+                height={32}
+                className="inline-block cursor-pointer lg:hidden"
+            />
         </nav>
     );
 };
