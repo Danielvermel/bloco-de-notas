@@ -16,7 +16,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="flexBetween padding-container z-30 py-5 fixed top-0 left-0 w-full bg-white shadow-sm">
+        <nav className="flexBetween z-30 py-5 fixed top-0 left-0 w-full bg-white shadow-sm px-20">
             <Image src="/logos/logo_2.png" alt="logo" height={150} width={220} />
 
             {/* Desktop Menu */}
