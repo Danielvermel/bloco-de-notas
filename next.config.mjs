@@ -8,4 +8,5 @@ export default {
 
     // Ensure asset prefix is correctly set for static hosting
     assetPrefix: "",
+    images: { unoptimized: true },
 };
