@@ -23,7 +23,7 @@
   if (mapFacade && mapBtn) {
     mapBtn.addEventListener("click", function () {
       var iframe = document.createElement("iframe");
-      iframe.src = "https://www.google.com/maps?q=Rua+de+Laborim+70+Vila+Nova+de+Gaia&output=embed";
+      iframe.src = "https://www.google.com/maps?q=41.1065368,-8.6017534&z=17&output=embed";
       iframe.title = "Mapa com a localização do Bloco de Notas";
       iframe.loading = "lazy";
       iframe.setAttribute("allowfullscreen", "");
