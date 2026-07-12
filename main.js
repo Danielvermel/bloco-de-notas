@@ -18,17 +18,32 @@
     });
   }
 
-  var mapFacade = document.getElementById("mapFacade");
-  var mapBtn = document.getElementById("mapLoadBtn");
-  if (mapFacade && mapBtn) {
-    mapBtn.addEventListener("click", function () {
-      var iframe = document.createElement("iframe");
-      iframe.src = "https://www.google.com/maps?q=41.1065368,-8.6017534&z=17&output=embed";
-      iframe.title = "Mapa com a localização do Bloco de Notas";
-      iframe.loading = "lazy";
-      iframe.setAttribute("allowfullscreen", "");
-      mapFacade.innerHTML = "";
-      mapFacade.appendChild(iframe);
+  var gallery = document.getElementById("gallery");
+  var moreBtn = document.getElementById("galleryMoreBtn");
+  if (gallery && moreBtn) {
+    moreBtn.addEventListener("click", function () {
+      gallery.classList.add("is-expanded");
+      moreBtn.setAttribute("aria-expanded", "true");
+      moreBtn.style.display = "none";
+    });
+  }
+
+  var lightbox = document.getElementById("lightbox");
+  var lightboxImg = document.getElementById("lightboxImg");
+  var lightboxClose = document.getElementById("lightboxClose");
+  if (gallery && lightbox && lightboxImg && lightboxClose) {
+    gallery.addEventListener("click", function (e) {
+      var btn = e.target.closest("button[data-src]");
+      if (!btn) return;
+      lightboxImg.src = btn.getAttribute("data-src");
+      lightboxImg.alt = btn.getAttribute("data-alt") || "";
+      lightbox.showModal();
+    });
+    lightboxClose.addEventListener("click", function () {
+      lightbox.close();
+    });
+    lightbox.addEventListener("click", function (e) {
+      if (e.target === lightbox) lightbox.close();
     });
   }
 
