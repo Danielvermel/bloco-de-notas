@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42" width="42" height="42" role="img" aria-labelledby="logoTitle">
+  <title id="logoTitle">Bloco de Notas</title>
+  <rect x="1" y="1" width="40" height="40" rx="10" fill="#146B7E"/>
+  <rect x="8" y="7" width="20" height="28" rx="3" fill="#FBFAF7"/>
+  <rect x="24" y="6" width="10" height="30" rx="3" fill="#F2B01E"/>
+  <line x1="11" y1="14" x2="21" y2="14" stroke="#146B7E" stroke-width="2" stroke-linecap="round"/>
+  <line x1="11" y1="19" x2="21" y2="19" stroke="#146B7E" stroke-width="2" stroke-linecap="round"/>
+  <line x1="11" y1="24" x2="18" y2="24" stroke="#146B7E" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="29" cy="12" r="1.6" fill="#FBFAF7"/>
+</svg>
