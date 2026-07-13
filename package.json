@@ -1,10 +1,10 @@
 {
   "name": "bloco-de-notas",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "dev": "npx serve .",
-    "build": "echo 'Static site, no build needed'"
+    "build": "rm -rf dist && mkdir dist && cp -r index.html 404.html main.js robots.txt sitemap.xml img fonts dist/"
   },
   "dependencies": {},
   "devDependencies": {
