@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloco de Notas · Centro de Estudos em Vila Nova de Gaia</title>
+<meta name="description" content="Apoio ao estudo e explicações do 1.º ciclo ao secundário em Vila Nova de Gaia. Grupos pequenos, transporte, refeições e acompanhamento personalizado.">
+<link rel="canonical" href="https://blocodenotas.pt/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bloco de Notas · Centro de Estudos em Vila Nova de Gaia">
+<meta property="og:description" content="Apoio ao estudo e explicações do 1.º ciclo ao secundário em Vila Nova de Gaia. Grupos pequenos, transporte, refeições e acompanhamento personalizado.">
+<meta property="og:image" content="https://blocodenotas.pt/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_PT">
+<meta property="og:url" content="https://blocodenotas.pt/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bloco de Notas · Centro de Estudos em Vila Nova de Gaia">
+<meta name="twitter:description" content="Apoio ao estudo e explicações do 1.º ciclo ao secundário em Vila Nova de Gaia.">
+<meta name="twitter:image" content="https://blocodenotas.pt/img/og-image.jpg">
+
+<link rel="icon" href="/img/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+<link rel="preload" href="/fonts/Sora-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/InstrumentSans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/img/hero-alunos-a-estudar.webp" as="image" fetchpriority="high">
+
+<style>
+@font-face{font-family:"Sora";src:url("/fonts/Sora-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Sora";src:url("/fonts/Sora-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url("/fonts/InstrumentSans-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url("/fonts/InstrumentSans-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+
+:root{
+  --bg:#FBFAF7;
+  --ink:#16323C;
+  --ink-soft:#3D5359;
+  --teal:#146B7E;
+  --teal-dark:#0F5A6B;
+  --amber:#F2B01E;
+  --tint:#EDF4F5;
+  --line:#E4E0D7;
+  --footer:#10333D;
+  --header-h:71px;
+  --font-head:"Sora",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.6;
+  padding-top:var(--header-h);
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--teal)}
+h1,h2,h3{font-family:var(--font-head);font-weight:700;line-height:1.15;margin:0 0 .5em}
+p{margin:0 0 1em}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+section[id]{scroll-margin-top:92px}
+
+.skip-link{
+  position:absolute;left:0;top:0;
+  background:var(--teal);color:#fff;
+  padding:10px 18px;
+  transform:translateY(-120%);
+  transition:transform .15s ease;
+  z-index:1000;
+  border-radius:0 0 8px 0;
+}
+.skip-link:focus{transform:translateY(0)}
+
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid var(--amber);
+  outline-offset:2px;
+}
+
+/* Header */
+.site-header{
+  position:fixed;top:0;left:0;right:0;
+  height:var(--header-h);
+  background:rgba(251,250,247,.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  z-index:100;
+}
+.site-header .container{
+  height:100%;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.brand img{width:42px;height:42px}
+.brand-word{display:flex;flex-direction:column;line-height:1.15}
+.brand-word strong{font-family:var(--font-head);font-size:16px;font-weight:700}
+.brand-word span{font-size:10.5px;letter-spacing:.09em;color:var(--ink-soft);font-weight:600}
+
+.main-nav{display:flex}
+.main-nav ul{list-style:none;display:flex;gap:32px;margin:0;padding:0}
+.main-nav a{
+  color:var(--ink);text-decoration:none;font-weight:600;font-size:15px;
+  padding:8px 2px;position:relative;
+}
+.main-nav a:hover{color:var(--teal)}
+
+.header-actions{display:flex;align-items:center;gap:14px}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--font-body);font-weight:600;font-size:15px;
+  padding:12px 22px;border-radius:999px;text-decoration:none;
+  border:2px solid transparent;cursor:pointer;
+  min-height:44px;
+  transition:background-color .15s ease,color .15s ease,border-color .15s ease;
+}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:var(--teal-dark)}
+.btn-outline{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-outline:hover{border-color:var(--teal);color:var(--teal)}
+.btn-pill-phone{background:var(--teal);color:#fff;font-size:14px;padding:10px 18px}
+.btn-pill-phone:hover{background:var(--teal-dark)}
+
+.hamburger{
+  display:none;
+  width:44px;height:44px;
+  border:1px solid var(--line);background:var(--bg);
+  border-radius:12px;
+  align-items:center;justify-content:center;
+  cursor:pointer;
+}
+.hamburger span,.hamburger span::before,.hamburger span::after{
+  content:"";display:block;width:20px;height:2px;background:var(--ink);
+  position:relative;transition:transform .2s ease,opacity .2s ease;
+}
+.hamburger span::before{position:absolute;top:-6px}
+.hamburger span::after{position:absolute;top:6px}
+.hamburger[aria-expanded="true"] span{background:transparent}
+.hamburger[aria-expanded="true"] span::before{transform:translateY(6px) rotate(45deg)}
+.hamburger[aria-expanded="true"] span::after{transform:translateY(-6px) rotate(-45deg)}
+
+/* Sections */
+main{overflow-x:hidden}
+.section{padding:88px 0}
+.section-tint{background:var(--tint)}
+.eyebrow{
+  color:var(--teal);font-weight:600;font-size:14px;letter-spacing:.04em;
+  text-transform:uppercase;margin-bottom:16px;display:block;
+}
+h1{font-size:52px}
+h2{font-size:36px}
+h3{font-size:20px}
+.lede{font-size:18px;color:var(--ink-soft);max-width:46ch}
+.section-head{max-width:640px;margin:0 0 48px}
+
+mark.highlight{
+  background:none;color:inherit;position:relative;
+  background-image:linear-gradient(var(--amber) 0 0);
+  background-repeat:no-repeat;background-size:100% .3em;background-position:0 88%;
+  padding:0 .05em;
+}
+
+/* Hero */
+.hero .container{
+  display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;
+  padding-top:56px;padding-bottom:56px;
+}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;margin:28px 0}
+.chip-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.chip{
+  background:var(--tint);color:var(--ink-soft);font-size:13.5px;font-weight:600;
+  padding:8px 14px;border-radius:999px;border:1px solid var(--line);
+}
+.hero-media{position:relative}
+.hero-media::before{
+  content:"";position:absolute;inset:20px -20px -20px 20px;
+  background:var(--tint);border-radius:20px;z-index:0;
+}
+.hero-media img{
+  position:relative;z-index:1;border-radius:20px;width:100%;height:auto;
+  aspect-ratio:4/3;object-fit:cover;
+}
+
+/* Service cards */
+.card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.card{
+  background:#fff;border-radius:18px;border:1px solid var(--line);overflow:hidden;
+}
+.card img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block}
+.card-body{padding:20px}
+.card-body h3{margin-bottom:6px;font-size:17px}
+.card-body p{color:var(--ink-soft);font-size:14px;margin:0}
+
+/* Porque nos */
+.why-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start}
+.why-sticky{position:sticky;top:calc(var(--header-h) + 32px)}
+.why-link{
+  display:inline-flex;align-items:center;gap:6px;font-weight:600;
+  text-decoration:none;color:var(--teal);margin-top:12px;
+}
+.why-link:hover{color:var(--teal-dark)}
+.why-list{list-style:none;margin:0;padding:0}
+.why-list li{
+  display:grid;grid-template-columns:56px 1fr;gap:20px;
+  padding:28px 0;border-bottom:1px solid var(--line);
+}
+.why-list li:first-child{padding-top:0}
+.why-list li:last-child{border-bottom:none}
+.why-num{
+  font-family:var(--font-head);font-weight:700;font-size:20px;color:var(--amber);
+}
+.why-item h3{margin-bottom:6px}
+.why-item p{color:var(--ink-soft);margin:0;font-size:15px}
+
+/* Testimonials */
+#porque-nos{padding-bottom:32px}
+#testemunhos{padding-top:32px}
+.testimonial-grid{margin-bottom:24px}
+.testimonial-grid .testimonial{max-width:640px}
+.testimonial{
+  margin:0;background:var(--tint);border:1px solid var(--line);
+  border-radius:18px;padding:28px;
+}
+.testimonial p{
+  margin:0 0 20px;color:var(--ink);font-size:15.5px;line-height:1.65;
+}
+.testimonial footer{display:flex;flex-direction:column;gap:2px}
+.testimonial strong{font-family:var(--font-head);font-size:15px}
+.testimonial span{color:var(--ink-soft);font-size:13.5px}
+
+/* Gallery */
+.gallery{
+  display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;grid-auto-flow:dense;gap:16px;
+}
+.gallery button{
+  display:block;border-radius:16px;overflow:hidden;position:relative;
+  border:none;padding:0;margin:0;cursor:pointer;background:none;width:100%;height:100%;
+}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:transform .2s ease}
+.gallery button:hover img{transform:scale(1.04)}
+.gallery .span-2{grid-column:span 2;grid-row:span 2}
+.gallery button.gallery-extra{display:none}
+.gallery.is-expanded button.gallery-extra{display:block}
+.gallery-more{margin:24px auto 0;display:flex}
+.gallery-more[hidden]{display:none}
+
+.lightbox{
+  border:none;padding:0;background:transparent;max-width:min(92vw,1100px);max-height:88vh;
+  border-radius:16px;overflow:hidden;
+}
+.lightbox::backdrop{background:rgba(16,50,60,.72)}
+.lightbox img{display:block;max-width:100%;max-height:88vh;width:auto;height:auto;margin:0 auto}
+.lightbox-close{
+  position:absolute;top:12px;right:12px;width:40px;height:40px;
+  border-radius:999px;border:none;background:#fff;color:var(--ink);
+  font-size:20px;line-height:1;cursor:pointer;
+}
+.lightbox-close:hover{background:var(--amber)}
+
+/* Contactos */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.contact-rows{margin:28px 0}
+.contact-row{
+  display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);
+}
+.contact-row:first-child{padding-top:0}
+.contact-row dt{
+  font-weight:600;min-width:120px;color:var(--ink);
+}
+.contact-row dd{margin:0;color:var(--ink-soft)}
+.contact-row a{color:var(--teal);text-decoration:none;font-weight:600}
+.contact-row a:hover{text-decoration:underline}
+
+.map-facade{
+  position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);
+  aspect-ratio:5/3;background:var(--tint);
+}
+.map-facade iframe{width:100%;height:100%;border:0;display:block}
+
+/* Footer */
+.site-footer{background:var(--footer);color:#CFE0E3;padding:64px 0 28px}
+.footer-grid{
+  display:grid;grid-template-columns:1.3fr .85fr .85fr;gap:48px;
+  padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.12);
+}
+.footer-brand .brand-word strong,.footer-brand .brand-word span{color:#fff}
+.footer-brand .brand-word span{color:#9FC1C7}
+.footer-brand p{color:#9FC1C7;margin-top:16px;max-width:36ch}
+.site-footer h3{color:#fff;font-size:15px;margin-bottom:16px}
+.site-footer ul{list-style:none;margin:0;padding:0}
+.site-footer li{margin-bottom:10px}
+.site-footer a{color:#CFE0E3;text-decoration:none;font-size:15px}
+.site-footer a:hover{color:var(--amber)}
+.footer-bottom{padding-top:24px;font-size:13.5px;color:#8FB3B9}
+
+/* Responsive */
+@media (max-width:900px){
+  .hero .container,.why-grid,.contact-grid{grid-template-columns:1fr}
+  .why-sticky{position:static}
+  .card-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .section{padding:64px 0}
+  .hero .container{padding-top:40px;padding-bottom:40px}
+}
+@media (max-width:840px){
+  .main-nav{display:none}
+  .hamburger{display:flex}
+  .site-header.nav-open .mobile-panel{display:block}
+}
+@media (max-width:540px){
+  h1{font-size:33px}
+  h2{font-size:28px}
+  .card-grid{grid-template-columns:1fr}
+  .gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}
+  .gallery .span-2{grid-column:span 2;grid-row:span 2}
+  .footer-grid{grid-template-columns:1fr}
+  .section{padding:48px 0}
+  .hero .container{padding-top:24px;padding-bottom:32px;gap:32px}
+  .header-actions{gap:8px}
+  .brand-word span{display:none}
+  .btn-pill-phone{padding:10px 14px;font-size:13px}
+  .testimonial{padding:20px}
+  .contact-row{flex-direction:column;gap:4px}
+  .contact-row dt{min-width:0}
+  .why-list li{grid-template-columns:36px 1fr;gap:14px}
+  .card-body{padding:16px}
+}
+
+.mobile-panel{
+  display:none;position:fixed;top:var(--header-h);left:0;right:0;
+  background:var(--bg);border-bottom:1px solid var(--line);
+  padding:12px 24px 24px;z-index:99;
+}
+.site-header.nav-open .mobile-panel{display:block}
+.mobile-panel ul{list-style:none;margin:0;padding:0}
+.mobile-panel li{border-bottom:1px solid var(--line)}
+.mobile-panel a{
+  display:block;padding:16px 4px;color:var(--ink);text-decoration:none;font-weight:600;
+}
+
+@media (max-width:380px){
+  .brand img{width:34px;height:34px}
+  .brand-word strong{font-size:14px}
+  .btn-pill-phone{padding:9px 12px;font-size:12.5px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none !important}
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "Bloco de Notas · Centro de Estudos",
+  "url": "https://blocodenotas.pt/",
+  "telephone": "+351910533646",
+  "email": "geral@blocodenotas.com.pt",
+  "image": "https://blocodenotas.pt/img/og-image.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rua de Laborim, 70",
+    "addressLocality": "Vila Nova de Gaia",
+    "addressCountry": "PT"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 41.1065368,
+    "longitude": -8.6017534
+  },
+  "sameAs": [
+    "https://www.instagram.com/centrodeestudos_blocodenotas/",
+    "https://www.facebook.com/CentrodeEstudosBlocodeNotas"
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "07:45",
+    "closes": "19:30"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "7"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+
+<header class="site-header" id="site-header">
+  <div class="container">
+    <a class="brand" href="#topo" aria-label="Bloco de Notas, página inicial">
+      <img src="/img/logo.png" width="42" height="42" alt="" loading="eager">
+      <span class="brand-word"><strong>Bloco de Notas</strong><span>CENTRO DE ESTUDOS</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Navegação principal">
+      <ul>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#porque-nos">Porquê Nós?</a></li>
+        <li><a href="#espaco">O Espaço</a></li>
+        <li><a href="#contactos">Contactos</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-pill-phone" href="https://wa.me/+351910533646/" rel="noopener" target="_blank" aria-label="Contacte-nos via WhatsApp: 910 533 646">Contacte-nos</a>
+      <button class="hamburger" id="navToggle" aria-expanded="false" aria-controls="mobilePanel" aria-label="Abrir menu de navegação">
+        <span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-panel" id="mobilePanel">
+    <ul>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#porque-nos">Porquê Nós?</a></li>
+      <li><a href="#espaco">O Espaço</a></li>
+      <li><a href="#contactos">Contactos</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="conteudo">
+  <section class="hero" id="topo">
+    <div class="container">
+      <div class="hero-copy">
+        <span class="eyebrow">Vila Nova de Gaia · Do 1.º ciclo ao secundário</span>
+        <h1>Aprender nunca foi tão <mark class="highlight">simples</mark>.</h1>
+        <p class="lede">No Bloco de Notas, o sucesso de cada aluno é a nossa prioridade. Atenção personalizada, estratégias de estudo ajustadas e apoio contínuo, para que aprender seja uma jornada cheia de conquistas.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#contactos">Contacte-nos</a>
+          <a class="btn btn-outline" href="#espaco">Conhecer o espaço</a>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Grupos pequenos</span>
+          <span class="chip">Transporte e refeições</span>
+          <span class="chip">Comunicação com os pais</span>
+        </div>
+      </div>
+      <div class="hero-media">
+        <picture>
+          <source type="image/avif" srcset="/img/hero-alunos-a-estudar.avif">
+          <source type="image/webp" srcset="/img/hero-alunos-a-estudar.webp">
+          <img src="/img/hero-alunos-a-estudar.jpg" width="1100" height="825" alt="Aluno a resolver exercícios num caderno de estudo" fetchpriority="high" decoding="async">
+        </picture>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="servicos">
+    <div class="container">
+      <div class="section-head">
+        <h2>Tudo o que o seu filho precisa, num só lugar</h2>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <picture>
+            <source type="image/avif" srcset="/img/apoio-ao-estudo.avif">
+            <source type="image/webp" srcset="/img/apoio-ao-estudo.webp">
+            <img src="/img/apoio-ao-estudo.jpg" width="800" height="600" alt="Duas crianças a estudar juntas com apoio ao estudo" loading="lazy" decoding="async">
+          </picture>
+          <div class="card-body">
+            <h3>Apoio ao Estudo</h3>
+            <p>Acompanhamento pedagógico para alunos dos 1.º, 2.º e 3.º ciclos do Ensino Básico, nas mais diversas disciplinas.</p>
+          </div>
+        </article>
+        <article class="card">
+          <picture>
+            <source type="image/avif" srcset="/img/explicacoes-individuais.avif">
+            <source type="image/webp" srcset="/img/explicacoes-individuais.webp">
+            <img src="/img/explicacoes-individuais.jpg" width="800" height="600" alt="Explicadora do Bloco de Notas a apresentar conteúdos" loading="lazy" decoding="async">
+          </picture>
+          <div class="card-body">
+            <h3>Explicações Individuais</h3>
+            <p>Apoio específico do 1.º ciclo ao Ensino Secundário, por profissionais qualificados e ajustado a cada aluno.</p>
+          </div>
+        </article>
+        <article class="card">
+          <picture>
+            <source type="image/avif" srcset="/img/transporte-e-refeicoes.avif">
+            <source type="image/webp" srcset="/img/transporte-e-refeicoes.webp">
+            <img src="/img/transporte-e-refeicoes.jpg" width="800" height="600" alt="Serviço de transporte entre a escola e o centro de estudos" loading="lazy" decoding="async">
+          </picture>
+          <div class="card-body">
+            <h3>Transporte e Refeições</h3>
+            <p>Transporte entre a escola e o centro, com refeições e lanches assegurados em conforto e segurança.</p>
+          </div>
+        </article>
+        <article class="card">
+          <picture>
+            <source type="image/avif" srcset="/img/atividades-de-verao.avif">
+            <source type="image/webp" srcset="/img/atividades-de-verao.webp">
+            <img src="/img/atividades-de-verao.jpg" width="800" height="600" alt="Crianças em atividade de verão ao ar livre" loading="lazy" decoding="async">
+          </picture>
+          <div class="card-body">
+            <h3>Atividades de Verão</h3>
+            <p>Praia, passeios, piqueniques e muito mais, lazer e diversão que criam memórias inesquecíveis.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="porque-nos">
+    <div class="container why-grid">
+      <div class="why-sticky">
+        <h2>Sem promessas exageradas. Apenas progresso consistente.</h2>
+        <p class="lede">Cada criança aprende de forma diferente. Por isso dedicamo-nos a entender as necessidades de cada aluno, com apoio personalizado e adaptado ao ritmo de cada um.</p>
+        <a class="why-link" href="#contactos">Fale connosco →</a>
+      </div>
+      <ol class="why-list">
+        <li>
+          <span class="why-num">01</span>
+          <div class="why-item">
+            <h3>Professores experientes</h3>
+            <p>Uma equipa que domina as matérias e compreende as dificuldades comuns dos alunos. Explicamos de forma clara para construir bases sólidas.</p>
+          </div>
+        </li>
+        <li>
+          <span class="why-num">02</span>
+          <div class="why-item">
+            <h3>Ambiente de estudo positivo</h3>
+            <p>Grupos pequenos onde os alunos se sentem motivados e confortáveis. Cada um recebe atenção e sente-se incluído e ouvido.</p>
+          </div>
+        </li>
+        <li>
+          <span class="why-num">03</span>
+          <div class="why-item">
+            <h3>Estratégias de estudo práticas</h3>
+            <p>Ensinamos mais do que a matéria: mostramos como estudar de forma eficiente, com métodos úteis em todo o percurso académico.</p>
+          </div>
+        </li>
+        <li>
+          <span class="why-num">04</span>
+          <div class="why-item">
+            <h3>Foco em resultados reais</h3>
+            <p>Não prometemos milagres. Trabalhamos com objetivos claros e alcançáveis, apoiando cada aluno passo a passo.</p>
+          </div>
+        </li>
+        <li>
+          <span class="why-num">05</span>
+          <div class="why-item">
+            <h3>Comunicação com os pais</h3>
+            <p>Feedback regular sobre o progresso dos seus filhos, para que todos estejam envolvidos no processo de aprendizagem.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="testemunhos">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">★★★★★ 4,9 no Google</span>
+        <h2>O que dizem os pais</h2>
+      </div>
+      <div class="testimonial-grid">
+        <blockquote class="testimonial">
+          <p>“Excelente atl/centro de estudos, onde tudo se destaca pelos seus fatores: competências, dedicação, rigor, apoio ao estudo, explicações, psicopedagogia, compreensão, informática, transporte, almoço, etc. Agradecemos toda a ajuda que têm dado à nossa filha, onde tem obtido bons resultados na escola. Ambiente familiar onde a Susana se destaca pelo seu profissionalismo perante as suas crianças. […] As crianças sentem-se em casa.”</p>
+          <footer>
+            <strong>João Filipe Bettencourt</strong>
+            <span>Avaliação Google · há 1 ano</span>
+          </footer>
+        </blockquote>
+      </div>
+      <a class="why-link" href="https://maps.app.goo.gl/eHxkJRCQUrFBP4hZ9" rel="noopener" target="_blank">Ver todas as avaliações no Google →</a>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="espaco">
+    <div class="container">
+      <div class="section-head">
+        <h2>Um lugar para estudar e para conviver</h2>
+        <p class="lede">Salas de estudo, zona de informática e espaço de convívio com matraquilhos e ténis de mesa.</p>
+      </div>
+      <div class="gallery" id="gallery">
+        <button type="button" class="span-2" data-src="/img/sala-de-estudo.jpg" data-alt="Sala de estudo principal do Bloco de Notas">
+          <picture>
+            <source type="image/avif" srcset="/img/sala-de-estudo.avif">
+            <source type="image/webp" srcset="/img/sala-de-estudo.webp">
+            <img src="/img/sala-de-estudo.jpg" width="900" height="900" alt="Sala de estudo principal do Bloco de Notas" loading="lazy" decoding="async">
+          </picture>
+        </button>
+        <button type="button" data-src="/img/zona-de-informatica.jpg" data-alt="Zona de informática com computadores">
+          <picture>
+            <source type="image/avif" srcset="/img/zona-de-informatica.avif">
+            <source type="image/webp" srcset="/img/zona-de-informatica.webp">
+            <img src="/img/zona-de-informatica.jpg" width="700" height="700" alt="Zona de informática com computadores" loading="lazy" decoding="async">
+          </picture>
+        </button>
+        <button type="button" data-src="/img/espaco-de-convivio.jpg" data-alt="Espaço de convívio para os alunos">
+          <picture>
+            <source type="image/avif" srcset="/img/espaco-de-convivio.avif">
+            <source type="image/webp" srcset="/img/espaco-de-convivio.webp">
+            <img src="/img/espaco-de-convivio.jpg" width="700" height="700" alt="Espaço de convívio para os alunos" loading="lazy" decoding="async">
+          </picture>
+        </button>
+        <button type="button" data-src="/img/sala-de-jogos.jpg" data-alt="Sala de jogos com matraquilhos e ténis de mesa">
+          <picture>
+            <source type="image/avif" srcset="/img/sala-de-jogos.avif">
+            <source type="image/webp" srcset="/img/sala-de-jogos.webp">
+            <img src="/img/sala-de-jogos.jpg" width="700" height="700" alt="Sala de jogos com matraquilhos e ténis de mesa" loading="lazy" decoding="async">
+          </picture>
+        </button>
+        <button type="button" data-src="/img/sala-de-leitura.jpg" data-alt="Sala de leitura com estante de livros">
+          <picture>
+            <source type="image/avif" srcset="/img/sala-de-leitura.avif">
+            <source type="image/webp" srcset="/img/sala-de-leitura.webp">
+            <img src="/img/sala-de-leitura.jpg" width="700" height="700" alt="Sala de leitura com estante de livros" loading="lazy" decoding="async">
+          </picture>
+        </button>
+        <button type="button" class="gallery-extra" data-src="/img/sala-de-estudo-colorida.jpg" data-alt="Sala de estudo com decoração colorida">
+          <picture>
+            <source type="image/avif" srcset="/img/sala-de-estudo-colorida.avif">
+            <source type="image/webp" srcset="/img/sala-de-estudo-colorida.webp">
+            <img src="/img/sala-de-estudo-colorida.jpg" width="700" height="700" alt="Sala de estudo com decoração colorida" loading="lazy" decoding="async">
+          </picture>
+        </button>
+        <button type="button" class="gallery-extra" data-src="/img/sala-de-apoio-ao-estudo.jpg" data-alt="Sala de apoio ao estudo com secretárias">
+          <picture>
+            <source type="image/avif" srcset="/img/sala-de-apoio-ao-estudo.avif">
+            <source type="image/webp" srcset="/img/sala-de-apoio-ao-estudo.webp">
+            <img src="/img/sala-de-apoio-ao-estudo.jpg" width="700" height="700" alt="Sala de apoio ao estudo com secretárias" loading="lazy" decoding="async">
+          </picture>
+        </button>
+        <button type="button" class="gallery-extra" data-src="/img/gabinete.jpg" data-alt="Gabinete de coordenação do Bloco de Notas">
+          <picture>
+            <source type="image/avif" srcset="/img/gabinete.avif">
+            <source type="image/webp" srcset="/img/gabinete.webp">
+            <img src="/img/gabinete.jpg" width="700" height="700" alt="Gabinete de coordenação do Bloco de Notas" loading="lazy" decoding="async">
+          </picture>
+        </button>
+        <button type="button" class="gallery-extra" data-src="/img/acesso-sala-de-convivio.jpg" data-alt="Corredor de acesso à sala de convívio">
+          <picture>
+            <source type="image/avif" srcset="/img/acesso-sala-de-convivio.avif">
+            <source type="image/webp" srcset="/img/acesso-sala-de-convivio.webp">
+            <img src="/img/acesso-sala-de-convivio.jpg" width="700" height="700" alt="Corredor de acesso à sala de convívio" loading="lazy" decoding="async">
+          </picture>
+        </button>
+        <button type="button" class="gallery-extra" data-src="/img/sala-de-estudo-biblioteca.jpg" data-alt="Sala de estudo com biblioteca de apoio">
+          <picture>
+            <source type="image/avif" srcset="/img/sala-de-estudo-biblioteca.avif">
+            <source type="image/webp" srcset="/img/sala-de-estudo-biblioteca.webp">
+            <img src="/img/sala-de-estudo-biblioteca.jpg" width="700" height="700" alt="Sala de estudo com biblioteca de apoio" loading="lazy" decoding="async">
+          </picture>
+        </button>
+        <button type="button" class="gallery-extra" data-src="/img/sala-de-estudo-luminosa.jpg" data-alt="Sala de estudo com boa luz natural">
+          <picture>
+            <source type="image/avif" srcset="/img/sala-de-estudo-luminosa.avif">
+            <source type="image/webp" srcset="/img/sala-de-estudo-luminosa.webp">
+            <img src="/img/sala-de-estudo-luminosa.jpg" width="700" height="700" alt="Sala de estudo com boa luz natural" loading="lazy" decoding="async">
+          </picture>
+        </button>
+      </div>
+      <button type="button" class="btn btn-outline gallery-more" id="galleryMoreBtn" aria-expanded="false">Ver mais fotos</button>
+    </div>
+  </section>
+
+  <section class="section" id="contactos">
+    <div class="container contact-grid">
+      <div>
+        <h2>Venha conhecer-nos</h2>
+        <address class="contact-rows" style="font-style:normal">
+          <div class="contact-row">
+            <dt>Morada</dt>
+            <dd><a href="https://maps.app.goo.gl/eHxkJRCQUrFBP4hZ9" rel="noopener" target="_blank">Rua de Laborim, 70, Vila Nova de Gaia</a></dd>
+          </div>
+          <div class="contact-row">
+            <dt>Telemóvel</dt>
+            <dd><a href="tel:+351910533646">+351 910 533 646</a></dd>
+          </div>
+          <div class="contact-row">
+            <dt>Email</dt>
+            <dd><a href="mailto:geral@blocodenotas.com.pt">geral@blocodenotas.com.pt</a></dd>
+          </div>
+        </address>
+        <a class="btn btn-primary" href="mailto:geral@blocodenotas.com.pt">Enviar mensagem</a>
+      </div>
+      <div class="map-facade" id="mapFacade">
+        <iframe src="https://www.google.com/maps?q=41.1065368,-8.6017534&z=17&output=embed" title="Mapa com a localização do Bloco de Notas" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+</main>
+
+<dialog class="lightbox" id="lightbox">
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Fechar imagem">&times;</button>
+  <img id="lightboxImg" src="" alt="" width="1100" height="825">
+</dialog>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="#topo" aria-label="Bloco de Notas, página inicial">
+        <img src="/img/logo.png" width="42" height="42" alt="" loading="lazy">
+        <span class="brand-word"><strong>Bloco de Notas</strong><span>CENTRO DE ESTUDOS</span></span>
+      </a>
+      <p>O nosso compromisso é simples: ajudar os seus filhos a estudar melhor, com confiança e sem pressão desnecessária.</p>
+    </div>
+    <nav aria-label="Navegação do rodapé">
+      <h3>Navegação</h3>
+      <ul>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#porque-nos">Porquê Nós?</a></li>
+        <li><a href="#espaco">O Espaço</a></li>
+        <li><a href="#contactos">Contactos</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h3>Redes Sociais</h3>
+      <ul>
+        <li><a href="https://www.instagram.com/centrodeestudos_blocodenotas/" rel="noopener" target="_blank">Instagram</a></li>
+        <li><a href="https://www.facebook.com/CentrodeEstudosBlocodeNotas" rel="noopener" target="_blank">Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p style="margin:0">&copy; <span id="year">2026</span> Bloco de Notas · Centro de Estudos · Vila Nova de Gaia</p>
+  </div>
+</footer>
+
+<script defer src="/main.js?v=6"></script>
+</body>
+</html>
