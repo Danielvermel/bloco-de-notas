@@ -6,7 +6,7 @@
 
 <title>Centro de Estudos em Vila Nova de Gaia · Explicações e Apoio ao Estudo · Bloco de Notas</title>
 <meta name="description" content="Centro de estudos em Vila Nova de Gaia para alunos do 1.º ao 9.º ano. Apoio ao estudo, explicações, transporte e refeições em grupos pequenos, com acompanhamento personalizado.">
-<link rel="canonical" href="https://blocodenotas.pt/">
+<link rel="canonical" href="https://blocodenotas.com.pt/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 
 <!-- Geo / local SEO -->
@@ -20,17 +20,17 @@
 <meta property="og:site_name" content="Bloco de Notas · Centro de Estudos">
 <meta property="og:title" content="Centro de Estudos em Vila Nova de Gaia · Explicações e Apoio ao Estudo">
 <meta property="og:description" content="Apoio ao estudo e explicações do 1.º ao 9.º ano em Vila Nova de Gaia. Grupos pequenos, transporte, refeições e acompanhamento personalizado.">
-<meta property="og:image" content="https://blocodenotas.pt/img/og-image.jpg">
+<meta property="og:image" content="https://blocodenotas.com.pt/img/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="pt_PT">
-<meta property="og:url" content="https://blocodenotas.pt/">
+<meta property="og:url" content="https://blocodenotas.com.pt/">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Centro de Estudos em Vila Nova de Gaia · Bloco de Notas">
 <meta name="twitter:description" content="Apoio ao estudo e explicações do 1.º ao 9.º ano em Vila Nova de Gaia. Grupos pequenos, transporte e refeições.">
-<meta name="twitter:image" content="https://blocodenotas.pt/img/og-image.jpg">
+<meta name="twitter:image" content="https://blocodenotas.com.pt/img/og-image.jpg">
 
 <meta name="theme-color" content="#0E5F55">
 <link rel="icon" href="/img/favicon.ico" sizes="any">
@@ -197,7 +197,6 @@ mark.hl{
 .site-header.nav-open + .mobile-panel{display:block}
 .mobile-panel li{border-bottom:1px solid var(--hairline)}
 .mobile-panel a{display:block;padding:15px 4px;color:var(--ink);text-decoration:none;font-weight:600}
-.mobile-panel .btn{margin-top:16px}
 
 main{overflow-x:hidden}
 
@@ -278,7 +277,7 @@ main{overflow-x:hidden}
 }
 .why-list li:first-child{padding-top:0}
 .why-list li:last-child{border-bottom:none}
-.why-num{font-family:var(--font-head);font-weight:800;font-size:22px;color:var(--yellow);line-height:1.1}
+.why-num{font-family:var(--font-head);font-weight:800;font-size:22px;color:var(--teal);line-height:1.1}
 .why-item h3{margin-bottom:6px}
 .why-item p{color:var(--body);margin:0;font-size:15px}
 
@@ -349,8 +348,8 @@ main{overflow-x:hidden}
   display:flex;align-items:center;justify-content:center;
 }
 .contact-icon svg{width:20px;height:20px}
-.contact-row dt{font-weight:700;color:var(--ink);font-size:13px;letter-spacing:.02em;margin-bottom:2px}
-.contact-row dd{margin:0;color:var(--body)}
+.contact-label{display:block;font-weight:700;color:var(--ink);font-size:13px;letter-spacing:.02em;margin-bottom:2px}
+.contact-value{display:block;margin:0;color:var(--body)}
 .contact-row a{color:var(--teal);text-decoration:none;font-weight:600}
 .contact-row a:hover{text-decoration:underline}
 .contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
@@ -440,10 +439,13 @@ main{overflow-x:hidden}
   .footer-grid{grid-template-columns:1fr;gap:32px}
   .contact-row{align-items:flex-start}
   .header-cta{display:none}
+  /* Service cards: icon in front of title, text below */
+  .svc-card{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"icon title" "text text";align-items:center;column-gap:14px}
+  .svc-card .icon-chip{grid-area:icon;margin-bottom:0}
+  .svc-card h3{grid-area:title;margin-bottom:0}
+  .svc-card p{grid-area:text;margin-top:12px}
 }
 @media (max-width:420px){
-  .stats .container{grid-template-columns:1fr}
-  .stat{border-left:none;padding-left:0}
   .brand-word span{display:none}
 }
 @media (prefers-reduced-motion:reduce){
@@ -458,11 +460,11 @@ main{overflow-x:hidden}
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
   "name": "Bloco de Notas · Centro de Estudos",
-  "url": "https://blocodenotas.pt/",
+  "url": "https://blocodenotas.com.pt/",
   "description": "Centro de estudos em Vila Nova de Gaia com apoio ao estudo e explicações para alunos do 1.º ao 9.º ano (Ensino Básico), em grupos pequenos, com transporte e refeições.",
   "telephone": "+351910533646",
   "email": "blocodnotas@gmail.com",
-  "image": "https://blocodenotas.pt/img/og-image.jpg",
+  "image": "https://blocodenotas.com.pt/img/og-image.jpg",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Rua de Laborim, 70",
@@ -547,7 +549,6 @@ main{overflow-x:hidden}
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contactos">Contactos</a></li>
   </ul>
-  <a class="btn btn-primary btn-block" href="#contactos">Contacte-nos</a>
 </div>
 
 <main id="conteudo">
@@ -777,24 +778,24 @@ main{overflow-x:hidden}
       </div>
       <div class="contact-grid">
         <div>
-          <dl class="contact-rows">
-            <div class="contact-row">
+          <ul class="contact-rows">
+            <li class="contact-row">
               <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.7"/></svg></span>
-              <div><dt>Morada</dt><dd><a href="https://maps.app.goo.gl/eHxkJRCQUrFBP4hZ9" rel="noopener" target="_blank">Rua de Laborim, 70, Vila Nova de Gaia</a></dd></div>
-            </div>
-            <div class="contact-row">
+              <div class="contact-text"><span class="contact-label">Morada</span><span class="contact-value"><a href="https://maps.app.goo.gl/eHxkJRCQUrFBP4hZ9" rel="noopener" target="_blank">Rua de Laborim, 70, Vila Nova de Gaia</a></span></div>
+            </li>
+            <li class="contact-row">
               <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 4h3l1.3 3.2-1.9 1.2a11 11 0 0 0 4.5 4.5l1.2-1.9L18 12.5v3a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 5 5.6 1.5 1.5 0 0 1 6.5 4Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
-              <div><dt>Telemóvel</dt><dd><a href="tel:+351910533646">+351 910 533 646</a></dd></div>
-            </div>
-            <div class="contact-row">
+              <div class="contact-text"><span class="contact-label">Telemóvel</span><span class="contact-value"><a href="tel:+351910533646">+351 910 533 646</a></span></div>
+            </li>
+            <li class="contact-row">
               <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="m4.5 7 7.5 5.5L19.5 7" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
-              <div><dt>Email</dt><dd><a href="mailto:blocodnotas@gmail.com">blocodnotas@gmail.com</a></dd></div>
-            </div>
-            <div class="contact-row">
+              <div class="contact-text"><span class="contact-label">Email</span><span class="contact-value"><a href="mailto:blocodnotas@gmail.com">blocodnotas@gmail.com</a></span></div>
+            </li>
+            <li class="contact-row">
               <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <div><dt>Horário</dt><dd>Seg–Sex · 7h30–19h00</dd></div>
-            </div>
-          </dl>
+              <div class="contact-text"><span class="contact-label">Horário</span><span class="contact-value">Seg–Sex · 7h30–19h00</span></div>
+            </li>
+          </ul>
           <div class="contact-actions">
             <a class="btn btn-primary" href="tel:+351910533646">
               <svg viewBox="0 0 24 24" fill="none"><path d="M6.5 4h3l1.3 3.2-1.9 1.2a11 11 0 0 0 4.5 4.5l1.2-1.9L18 12.5v3a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 5 5.6 1.5 1.5 0 0 1 6.5 4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
