@@ -819,9 +819,8 @@ main{overflow-x:hidden}
           </div>
         </div>
 
-        <!-- Formulário: substituir REPLACE_WITH_FORM_ID pelo ID do Formspree (ou outro backend). -->
-        <!-- Enquanto não estiver configurado, o envio faz fallback para email (mailto:). -->
-        <form class="contact-form" id="contactForm" action="https://formspree.io/f/REPLACE_WITH_FORM_ID" method="post" novalidate>
+        <!-- Formulário ligado ao Formspree. Se o action voltar ao placeholder, o envio faz fallback para email (mailto:). -->
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/mojgwwdk" method="post" novalidate>
           <div class="field">
             <label for="cf-nome">Nome</label>
             <input id="cf-nome" name="nome" type="text" autocomplete="name" required>
