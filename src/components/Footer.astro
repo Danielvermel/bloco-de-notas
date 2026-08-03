@@ -1,0 +1,182 @@
+---
+import { footerNav, site } from "../data/site.js";
+
+const { prefix = "", homeHref = "#topo", rating = false } = Astro.props;
+const buildYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href={homeHref} aria-label="Bloco de Notas, página inicial">
+          <img src="/img/logo.png" width="42" height="42" alt="" loading="lazy" />
+          <span class="brand-word"
+            ><strong>{site.shortName}</strong><span>{site.tagline}</span></span
+          >
+        </a>
+        <p>
+          O nosso compromisso é simples: ajudar os seus filhos a estudar melhor,
+          com confiança e sem pressão desnecessária.
+        </p>
+        {
+          rating && (
+            <span class="footer-rating">
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor">
+                <path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8L3.5 9.3l5.9-.9L12 3Z" />
+              </svg>
+              {site.rating} no Google
+            </span>
+          )
+        }
+      </div>
+      <nav aria-label="Navegação do rodapé">
+        <h3>Navegação</h3>
+        <ul>
+          {
+            footerNav.map((item) => (
+              <li>
+                <a href={prefix + item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <h3>Contactos</h3>
+        <address>
+          {site.street}<br />
+          {site.locality}<br />
+          <a href={site.phoneHref}>{site.phone}</a><br />
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </address>
+      </div>
+      <div>
+        <h3>Redes Sociais</h3>
+        <ul>
+          <li>
+            <a href={site.instagram} rel="noopener" target="_blank">Instagram</a>
+          </li>
+          <li>
+            <a href={site.facebook} rel="noopener" target="_blank">Facebook</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>
+        &copy; <span id="year">{buildYear}</span> Bloco de Notas · Centro de Estudos
+        · Vila Nova de Gaia
+      </p>
+      <p>
+        Site desenvolvido por <a
+          href={site.developer.url}
+          target="_blank"
+          rel="noopener">{site.developer.name}</a
+        >
+      </p>
+      <p><a href="/privacidade.html">Política de Privacidade</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // The build year is rendered server-side; this keeps a long-lived deploy honest.
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+</script>
+
+<style is:global>
+  .site-footer {
+    background: var(--teal-900);
+    color: #bfd6d0;
+    padding: clamp(48px, 7vw, 72px) 0 28px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr 1fr 0.8fr;
+    gap: clamp(28px, 4vw, 48px);
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .site-footer .brand-word strong {
+    color: #fff;
+  }
+  .site-footer .brand-word span {
+    color: var(--yellow);
+  }
+  .footer-brand p {
+    color: #9fbcb5;
+    margin: 16px 0;
+    max-width: 34ch;
+    font-size: 14.5px;
+  }
+  .footer-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .footer-rating .star {
+    width: 18px;
+    height: 18px;
+    color: var(--yellow);
+  }
+  .site-footer h3 {
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .site-footer li {
+    margin-bottom: 11px;
+  }
+  .site-footer a {
+    color: #bfd6d0;
+    text-decoration: none;
+    font-size: 14.5px;
+  }
+  .site-footer a:hover {
+    color: var(--yellow);
+  }
+  .footer-contact address {
+    font-style: normal;
+    color: #9fbcb5;
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+  .footer-bottom {
+    padding-top: 24px;
+    font-size: 13.5px;
+    color: #7fa39c;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom p {
+    margin: 0;
+  }
+  .footer-bottom a {
+    color: #7fa39c;
+    text-decoration: none;
+  }
+  .footer-bottom a:hover {
+    color: var(--yellow);
+  }
+
+  @media (max-width: 960px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 600px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+</style>

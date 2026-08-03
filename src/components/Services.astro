@@ -1,0 +1,113 @@
+---
+import { services } from "../data/site.js";
+---
+
+<section class="section" id="servicos">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Serviços</span>
+      <h2>Tudo o que o seu filho precisa, num só lugar</h2>
+      <p class="lede">
+        Do acompanhamento diário às explicações individuais, com a logística do
+        dia a dia resolvida.
+      </p>
+    </div>
+    <div class="card-grid">
+      {
+        services.map((s) => (
+          <article class="svc-card">
+            <div class:list={["icon-chip", { "chip-yellow": s.yellow }]}>
+              <svg
+                viewBox="0 0 256 256"
+                fill="currentColor"
+                aria-hidden="true"
+                set:html={s.icon}
+              />
+            </div>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+  }
+  .svc-card {
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-card);
+    padding: 26px 24px;
+    box-shadow: var(--shadow-card);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .svc-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 44px -22px rgba(10, 60, 55, 0.32);
+  }
+  .icon-chip {
+    width: 56px;
+    height: 56px;
+    border-radius: 15px;
+    background: var(--mint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--teal);
+    margin-bottom: 20px;
+  }
+  .icon-chip.chip-yellow {
+    background: #fbe7a0;
+  }
+  .icon-chip svg {
+    width: 31px;
+    height: 31px;
+  }
+  .svc-card h3 {
+    margin-bottom: 8px;
+  }
+  .svc-card p {
+    color: var(--body);
+    font-size: 14.5px;
+    margin: 0;
+  }
+
+  @media (max-width: 960px) {
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .card-grid {
+      grid-template-columns: 1fr;
+    }
+    /* Icon in front of the title, copy underneath. */
+    .svc-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-areas: "icon title" "text text";
+      align-items: center;
+      column-gap: 14px;
+    }
+    .svc-card .icon-chip {
+      grid-area: icon;
+      margin-bottom: 0;
+    }
+    .svc-card h3 {
+      grid-area: title;
+      margin-bottom: 0;
+    }
+    .svc-card p {
+      grid-area: text;
+      margin-top: 12px;
+    }
+  }
+</style>

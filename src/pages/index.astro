@@ -1,0 +1,124 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Stats from "../components/Stats.astro";
+import Services from "../components/Services.astro";
+import WhyUs from "../components/WhyUs.astro";
+import Gallery from "../components/Gallery.astro";
+import Testimonials from "../components/Testimonials.astro";
+import Faq from "../components/Faq.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import { faq, site } from "../data/site.js";
+
+const organization = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  name: site.name,
+  url: `${site.url}/`,
+  description:
+    "Centro de estudos em Vila Nova de Gaia com apoio ao estudo e explicações para alunos do 1.º ao 9.º ano (Ensino Básico), em grupos pequenos, com transporte e refeições.",
+  telephone: site.phoneE164,
+  email: site.email,
+  image: site.url + site.ogImage,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.street,
+    addressLocality: site.locality,
+    postalCode: site.postalCode,
+    addressCountry: site.country,
+  },
+  geo: { "@type": "GeoCoordinates", latitude: site.lat, longitude: site.lng },
+  areaServed: { "@type": "City", name: site.locality },
+  sameAs: [site.instagram, site.facebook],
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: site.opens,
+    closes: site.closes,
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: site.ratingValue,
+    bestRating: "5",
+    reviewCount: site.reviewCount,
+  },
+};
+
+// Generated from the same array the FAQ section renders, so the two can't drift.
+const faqPage = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Centro de Estudos em Vila Nova de Gaia · Bloco de Notas"
+  description="Centro de estudos em Vila Nova de Gaia, do 1.º ao 9.º ano. Apoio ao estudo, explicações, transporte e refeições, com acompanhamento personalizado."
+  canonical={`${site.url}/`}
+  robots="index, follow, max-image-preview:large"
+  jsonLd={[organization, faqPage]}
+>
+  <Fragment slot="head">
+    <!-- Geo / local SEO -->
+    <meta name="geo.region" content="PT-13" />
+    <meta name="geo.placename" content={site.locality} />
+    <meta name="geo.position" content={`${site.lat};${site.lng}`} />
+    <meta name="ICBM" content={`${site.lat}, ${site.lng}`} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta
+      property="og:title"
+      content="Centro de Estudos em Vila Nova de Gaia · Explicações e Apoio ao Estudo"
+    />
+    <meta
+      property="og:description"
+      content="Apoio ao estudo e explicações do 1.º ao 9.º ano em Vila Nova de Gaia. Grupos pequenos, transporte, refeições e acompanhamento personalizado."
+    />
+    <meta property="og:image" content={site.url + site.ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="pt_PT" />
+    <meta property="og:url" content={`${site.url}/`} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Centro de Estudos em Vila Nova de Gaia · Bloco de Notas"
+    />
+    <meta
+      name="twitter:description"
+      content="Apoio ao estudo e explicações do 1.º ao 9.º ano em Vila Nova de Gaia. Grupos pequenos, transporte e refeições."
+    />
+    <meta name="twitter:image" content={site.url + site.ogImage} />
+
+    <link
+      rel="preload"
+      href="/img/hero-alunos-a-estudar.webp"
+      as="image"
+      fetchpriority="high"
+    />
+  </Fragment>
+
+  <Header />
+  <main id="conteudo">
+    <Hero />
+    <Stats />
+    <Services />
+    <WhyUs />
+    <Gallery />
+    <Testimonials />
+    <Faq />
+    <Contact />
+  </main>
+  <Footer rating />
+</BaseLayout>

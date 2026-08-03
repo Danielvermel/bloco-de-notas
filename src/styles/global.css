@@ -1,0 +1,119 @@
+/* ---------- Fonts (self-hosted, variable, latin subset) ---------- */
+@font-face{font-family:"Bricolage Grotesque";src:url("/fonts/BricolageGrotesque-var.woff2") format("woff2");font-weight:200 800;font-style:normal;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url("/fonts/HankenGrotesk-var.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+
+/* ---------- Design tokens ---------- */
+:root{
+  --teal:#0E5F55;
+  --teal-dark:#0A3F39;
+  --teal-900:#062B27;
+  --paper:#FAF6EC;
+  --mint:#E7F0EC;
+  --yellow:#F6C544;
+  --ink:#15322D;
+  --body:#3E4A46;
+  --hairline:rgba(10,60,55,.12);
+  --card:#fff;
+
+  --font-head:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+
+  --radius-card:20px;
+  --radius-img:16px;
+  --radius-input:12px;
+  --shadow-card:0 12px 30px -18px rgba(10,60,55,.22);
+  --shadow-float:0 18px 40px -20px rgba(10,60,55,.34);
+
+  --header-h:72px;
+  --maxw:1180px;
+  --pad-x:clamp(18px,5vw,48px);
+  --pad-y:clamp(64px,8vw,110px);
+}
+
+/* ---------- Reset / base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:92px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--body);
+  font-family:var(--font-body);
+  font-size:clamp(15.5px,1.3vw,17.5px);
+  font-weight:400;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+svg{display:block}
+a{color:var(--teal)}
+p{margin:0 0 1em}
+h1,h2,h3{font-family:var(--font-head);color:var(--ink);margin:0 0 .5em;letter-spacing:-.02em}
+h1{font-weight:800;font-size:clamp(38px,5.4vw,66px);line-height:1.04}
+h2{font-weight:800;font-size:clamp(28px,3.6vw,44px);line-height:1.08}
+h3{font-weight:700;font-size:clamp(17px,1.6vw,20px);line-height:1.2;letter-spacing:-.01em}
+ul{margin:0;padding:0;list-style:none}
+main{overflow-x:hidden}
+
+/* ---------- Layout utilities ---------- */
+.container{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad-x)}
+.section{padding-block:var(--pad-y)}
+.bg-mint{background:var(--mint)}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:18px;
+}
+.eyebrow::before{content:"";width:22px;height:2px;border-radius:2px;background:var(--yellow);flex:none}
+.eyebrow.no-bar::before{display:none}
+
+.section-head{max-width:640px;margin:0 0 clamp(36px,5vw,56px)}
+.section-head.is-centered{margin-inline:auto;text-align:center}
+.lede{font-size:clamp(16px,1.4vw,18.5px);color:var(--body);max-width:52ch}
+
+mark.hl{
+  background:none;color:inherit;padding:0 .06em;
+  background-image:linear-gradient(var(--yellow),var(--yellow));
+  background-repeat:no-repeat;background-size:100% .34em;background-position:0 82%;
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:var(--font-body);font-weight:700;font-size:15px;line-height:1;
+  padding:14px 24px;border-radius:999px;text-decoration:none;white-space:nowrap;
+  border:1.5px solid transparent;cursor:pointer;min-height:48px;
+  transition:background-color .16s ease,color .16s ease,border-color .16s ease,transform .16s ease;
+}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:var(--teal-dark)}
+.btn-outline{background:#fff;color:var(--ink);border-color:var(--hairline)}
+.btn-outline:hover{border-color:var(--teal);color:var(--teal)}
+.btn-block{width:100%}
+
+/* ---------- Brand lockup (header + footer) ---------- */
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.brand img{width:42px;height:42px;border-radius:10px}
+.brand-word{display:flex;flex-direction:column;line-height:1.12}
+.brand-word strong{font-family:var(--font-head);font-size:17px;font-weight:800;letter-spacing:-.01em}
+.brand-word span{font-size:10px;letter-spacing:.14em;color:var(--teal);font-weight:700}
+
+/* ---------- Accessibility helpers ---------- */
+.skip-link{
+  position:absolute;left:0;top:0;background:var(--teal);color:#fff;
+  padding:10px 18px;transform:translateY(-120%);transition:transform .15s ease;
+  z-index:1000;border-radius:0 0 8px 0;text-decoration:none;font-weight:600;
+}
+.skip-link:focus{transform:translateY(0)}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+
+/* ---------- Responsive ---------- */
+@media (max-width:420px){
+  .brand-word span{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}

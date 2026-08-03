@@ -1,0 +1,223 @@
+---
+import { nav, site } from "../data/site.js";
+
+/**
+ * `prefix` is "" on the homepage (plain #anchors) and "/" on sub-pages, where
+ * the same links have to travel back to the homepage first.
+ * `mobileCta` adds the "Contacte-nos" button inside the mobile panel — needed
+ * on sub-pages, where the header CTA is the only way back to the form.
+ */
+const { prefix = "", homeHref = "#topo", mobileCta = false } = Astro.props;
+---
+
+<header class="site-header" id="site-header">
+  <div class="container">
+    <a class="brand" href={homeHref} aria-label="Bloco de Notas, página inicial">
+      <img src="/img/logo.png" width="42" height="42" alt="" loading="eager" />
+      <span class="brand-word"
+        ><strong>{site.shortName}</strong><span>{site.tagline}</span></span
+      >
+    </a>
+    <nav class="main-nav" aria-label="Navegação principal">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={prefix + item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-primary header-cta" href={`${prefix}#contactos`}
+        >Contacte-nos</a
+      >
+      <button
+        class="hamburger"
+        id="navToggle"
+        aria-expanded="false"
+        aria-controls="mobilePanel"
+        aria-label="Abrir menu de navegação"
+      >
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="mobile-panel" id="mobilePanel">
+  <ul>
+    {
+      nav.map((item) => (
+        <li>
+          <a href={prefix + item.href}>{item.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+  {
+    mobileCta && (
+      <a class="btn btn-primary btn-block" href={`${prefix}#contactos`}>
+        Contacte-nos
+      </a>
+    )
+  }
+</div>
+
+<script>
+  const header = document.getElementById("site-header");
+  const toggle = document.getElementById("navToggle");
+  const panel = document.getElementById("mobilePanel");
+
+  if (toggle && header && panel) {
+    toggle.addEventListener("click", () => {
+      const open = header.classList.toggle("nav-open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    panel.addEventListener("click", (e) => {
+      if ((e.target as Element).closest("a")) {
+        header.classList.remove("nav-open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+</script>
+
+<style is:global>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: var(--header-h);
+    background: rgba(250, 246, 236, 0.86);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .site-header .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .main-nav ul {
+    display: flex;
+    gap: 6px;
+  }
+  .main-nav a {
+    display: inline-block;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    transition: background-color 0.15s ease;
+  }
+  .main-nav a:hover {
+    background: rgba(14, 95, 85, 0.08);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .btn.header-cta {
+    padding: 11px 20px;
+    font-size: 14.5px;
+    min-height: 44px;
+  }
+
+  .hamburger {
+    display: none;
+    width: 46px;
+    height: 46px;
+    border: 1px solid var(--hairline);
+    background: #fff;
+    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .hamburger span,
+  .hamburger span::before,
+  .hamburger span::after {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--ink);
+    position: relative;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+  .hamburger span::before {
+    position: absolute;
+    top: -6px;
+  }
+  .hamburger span::after {
+    position: absolute;
+    top: 6px;
+  }
+  .hamburger[aria-expanded="true"] span {
+    background: transparent;
+  }
+  .hamburger[aria-expanded="true"] span::before {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .hamburger[aria-expanded="true"] span::after {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .mobile-panel {
+    display: none;
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background: var(--paper);
+    border-bottom: 1px solid var(--hairline);
+    padding: 8px var(--pad-x) 0;
+    box-shadow: 0 18px 30px -14px rgba(10, 60, 55, 0.3);
+  }
+  .site-header.nav-open + .mobile-panel {
+    display: block;
+  }
+  .mobile-panel li {
+    border-bottom: 1px solid var(--hairline);
+  }
+  .mobile-panel li:last-child {
+    border-bottom: none;
+  }
+  /* Scoped to the list so it cannot bleed onto the CTA button below it. */
+  .mobile-panel li a {
+    display: block;
+    padding: 15px 4px;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  /* The CTA supplies the panel's bottom breathing room when it is present. */
+  .mobile-panel .btn {
+    margin: 16px 0 20px;
+  }
+
+  @media (max-width: 860px) {
+    .main-nav {
+      display: none;
+    }
+    .hamburger {
+      display: flex;
+    }
+  }
+  @media (max-width: 600px) {
+    .btn.header-cta {
+      display: none;
+    }
+  }
+</style>

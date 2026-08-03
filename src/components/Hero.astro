@@ -1,0 +1,123 @@
+---
+const chips = [
+  "Grupos pequenos",
+  "Transporte e refeições",
+  "Comunicação com os pais",
+];
+---
+
+<section class="hero" id="topo">
+  <div class="container">
+    <div class="hero-copy">
+      <span class="eyebrow">Vila Nova de Gaia · Do 1.º ao 9.º ano</span>
+      <h1>Aprender nunca foi tão <mark class="hl">simples</mark>.</h1>
+      <p class="lede">
+        No Bloco de Notas, o sucesso de cada aluno é a nossa prioridade. Atenção
+        personalizada, estratégias de estudo ajustadas e apoio contínuo, do 1.º
+        ao 9.º ano, para que aprender seja uma jornada cheia de conquistas.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contactos">Contacte-nos</a>
+        <a class="btn btn-outline" href="#espaco">Conhecer o espaço</a>
+      </div>
+      <div class="chip-row">
+        {chips.map((chip) => <span class="chip">{chip}</span>)}
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="hero-photo">
+        <img
+          src="/img/hero-alunos-a-estudar.webp"
+          width="1100"
+          height="825"
+          alt="Aluno a resolver exercícios num caderno, com apoio ao estudo no Bloco de Notas"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .hero .container {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+    padding-block: clamp(40px, 6vw, 80px);
+  }
+  .hero-cta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin: 30px 0 24px;
+  }
+  .chip-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--mint);
+    color: var(--ink);
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 9px 15px;
+    border-radius: 999px;
+    border: 1px solid var(--hairline);
+  }
+  .chip::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--teal);
+    flex: none;
+  }
+
+  .hero-media {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    justify-self: center;
+    margin-inline: auto;
+  }
+  .hero-media::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--yellow);
+    border-radius: 26px;
+    transform: rotate(-5deg) scale(0.97);
+    z-index: 0;
+  }
+  .hero-photo {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    padding: 6px;
+    border-radius: 24px;
+    box-shadow: var(--shadow-float);
+  }
+  .hero-photo img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 5/6;
+    object-fit: cover;
+    border-radius: 18px;
+  }
+
+  @media (max-width: 960px) {
+    .hero .container {
+      grid-template-columns: 1fr;
+    }
+    .hero-media {
+      grid-row: 1;
+      max-width: 360px;
+    }
+  }
+</style>

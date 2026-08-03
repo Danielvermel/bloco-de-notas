@@ -1,0 +1,191 @@
+---
+import { gallery } from "../data/site.js";
+---
+
+<section class="section" id="espaco">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">O Espaço</span>
+      <h2>Um lugar para estudar e para conviver</h2>
+      <p class="lede">
+        Salas de estudo, zona de informática e espaço de convívio com
+        matraquilhos e ténis de mesa.
+      </p>
+    </div>
+    <div class="gallery is-collapsed" id="gallery">
+      {
+        gallery.map((photo) => (
+          <button
+            type="button"
+            class:list={[{ feature: photo.feature }]}
+            data-src={photo.src}
+            data-alt={photo.short}
+          >
+            <img
+              src={photo.src}
+              width={photo.w}
+              height={photo.h}
+              alt={photo.alt}
+              loading="lazy"
+              decoding="async"
+            />
+          </button>
+        ))
+      }
+    </div>
+    <button
+      type="button"
+      class="btn btn-outline gallery-more"
+      id="galleryMoreBtn"
+      aria-expanded="false"
+      aria-controls="gallery">Ver mais fotos</button
+    >
+  </div>
+</section>
+
+<dialog class="lightbox" id="lightbox">
+  <button
+    type="button"
+    class="lightbox-close"
+    id="lightboxClose"
+    aria-label="Fechar imagem">&times;</button
+  >
+  <img id="lightboxImg" src="" alt="" width="1100" height="825" />
+</dialog>
+
+<script>
+  const gallery = document.getElementById("gallery");
+  const moreBtn = document.getElementById("galleryMoreBtn");
+
+  if (gallery && moreBtn) {
+    moreBtn.addEventListener("click", () => {
+      gallery.classList.remove("is-collapsed");
+      moreBtn.setAttribute("aria-expanded", "true");
+      moreBtn.hidden = true;
+    });
+  }
+
+  const lightbox = document.getElementById("lightbox") as HTMLDialogElement;
+  const lightboxImg = document.getElementById("lightboxImg") as HTMLImageElement;
+  const lightboxClose = document.getElementById("lightboxClose");
+
+  if (
+    gallery &&
+    lightbox &&
+    lightboxImg &&
+    lightboxClose &&
+    typeof lightbox.showModal === "function"
+  ) {
+    gallery.addEventListener("click", (e) => {
+      const btn = (e.target as Element).closest("button[data-src]");
+      if (!btn) return;
+      lightboxImg.src = btn.getAttribute("data-src") ?? "";
+      lightboxImg.alt = btn.getAttribute("data-alt") ?? "";
+      lightbox.showModal();
+    });
+    lightboxClose.addEventListener("click", () => lightbox.close());
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) lightbox.close();
+    });
+  }
+</script>
+
+<style is:global>
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: clamp(126px, 13.5vw, 170px);
+    grid-auto-flow: dense;
+    gap: 14px;
+  }
+  .gallery button {
+    display: block;
+    border-radius: var(--radius-img);
+    overflow: hidden;
+    position: relative;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    background: none;
+    width: 100%;
+    height: 100%;
+    grid-row: span 2;
+  }
+  .gallery button.feature {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .gallery button:hover img {
+    transform: scale(1.05);
+  }
+  .btn.gallery-more {
+    margin: 30px auto 0;
+    display: flex;
+    width: fit-content;
+  }
+  .btn.gallery-more[hidden] {
+    display: none;
+  }
+  /* Collapsed teaser: 1 wide feature + 4 thumbnails as a clean block. */
+  .gallery.is-collapsed button:nth-child(n + 6) {
+    display: none;
+  }
+  .gallery.is-collapsed button:not(.feature) {
+    grid-row: span 1;
+  }
+
+  .lightbox {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: min(92vw, 1100px);
+    max-height: 88vh;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .lightbox::backdrop {
+    background: rgba(6, 43, 39, 0.74);
+  }
+  .lightbox img {
+    display: block;
+    max-width: 100%;
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: none;
+    background: #fff;
+    color: var(--ink);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .lightbox-close:hover {
+    background: var(--yellow);
+  }
+
+  @media (max-width: 600px) {
+    .gallery {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: clamp(120px, 34vw, 150px);
+    }
+    .gallery button.feature {
+      grid-column: span 2;
+    }
+  }
+</style>

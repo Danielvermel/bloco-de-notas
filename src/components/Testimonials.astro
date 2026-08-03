@@ -1,0 +1,190 @@
+---
+import { site, testimonials } from "../data/site.js";
+---
+
+<section class="section" id="testemunhos">
+  <div class="container">
+    <div class="section-head is-centered">
+      <h2>O que dizem as famílias</h2>
+      <a
+        class="testi-rating"
+        href={site.reviewsLink}
+        rel="noopener"
+        target="_blank"
+        aria-label={`Ver as 11 avaliações do Bloco de Notas no Google. Classificação média de ${site.rating} em 5.`}
+      >
+        {site.rating}
+        <svg class="star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+          ><path
+            d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8L3.5 9.3l5.9-.9L12 3Z"
+          ></path></svg
+        >
+        <span class="sep" aria-hidden="true">·</span>
+        <span class="count">{site.reviewsShown}</span>
+      </a>
+    </div>
+    <div class="testi-grid">
+      {
+        testimonials.map((t) => (
+          <figure class="testi-card">
+            <blockquote class="testi-quote">
+              <p>{t.quote}</p>
+            </blockquote>
+            <figcaption class="testi-author">
+              <span
+                class:list={["testi-avatar", { "av-yellow": t.yellow }]}
+                aria-hidden="true"
+              >
+                {t.initials}
+              </span>
+              <span>
+                <cite class="testi-name">{t.name}</cite>
+                <span class="testi-source">Avaliação no Google</span>
+              </span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .testi-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 20px;
+    background: #fff;
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    padding: 10px 18px;
+    box-shadow: var(--shadow-card);
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14.5px;
+    line-height: 1;
+    transition:
+      border-color 0.16s ease,
+      transform 0.16s ease;
+  }
+  .testi-rating:hover {
+    border-color: var(--teal);
+    transform: translateY(-2px);
+  }
+  .testi-rating .star {
+    width: 17px;
+    height: 17px;
+    color: var(--yellow);
+    flex: none;
+  }
+  .testi-rating .sep {
+    color: var(--body);
+    opacity: 0.45;
+  }
+  .testi-rating .count {
+    font-weight: 600;
+    color: var(--body);
+  }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    align-items: stretch;
+  }
+  .testi-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-card);
+    padding: 26px 24px;
+    box-shadow: var(--shadow-card);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .testi-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 44px -22px rgba(10, 60, 55, 0.32);
+  }
+  .testi-card::before {
+    content: "\201C";
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 52px;
+    line-height: 0.72;
+    color: var(--yellow);
+    display: block;
+    margin-bottom: 14px;
+  }
+  .testi-quote {
+    margin: 0;
+    flex: 1 1 auto;
+  }
+  .testi-quote p {
+    margin: 0;
+    color: var(--body);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--hairline);
+  }
+  .testi-avatar {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: var(--mint);
+    color: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 15px;
+  }
+  .testi-avatar.av-yellow {
+    background: #fbe7a0;
+  }
+  .testi-name {
+    display: block;
+    font-style: normal;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.25;
+  }
+  .testi-source {
+    display: block;
+    font-size: 12.5px;
+    color: var(--body);
+    opacity: 0.75;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 960px) {
+    .testi-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    /* 3 cards in 2 columns: the last one spans instead of leaving a gap. */
+    .testi-grid .testi-card:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 600px) {
+    .testi-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

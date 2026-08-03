@@ -1,15 +1,14 @@
 {
   "name": "bloco-de-notas",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "npx serve .",
-    "build": "rm -rf dist && mkdir dist && cp -r index.html privacidade.html 404.html main.js robots.txt sitemap.xml img fonts dist/"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
   "devDependencies": {
-    "@fontsource-variable/bricolage-grotesque": "^5.2.10",
-    "@fontsource-variable/hanken-grotesk": "^5.2.8",
-    "@phosphor-icons/core": "^2.1.1",
-    "serve": "^14.2.3"
+    "astro": "^7.1.6"
   }
 }

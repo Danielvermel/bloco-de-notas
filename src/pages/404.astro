@@ -1,0 +1,92 @@
+---
+// Deliberately standalone: no layout, no shared stylesheet. An error page
+// should render from a single tiny document even when the rest is broken.
+---
+
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Página não encontrada · Bloco de Notas</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/img/favicon.ico" sizes="any" />
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Página não encontrada</h1>
+      <p>
+        A página que procura não existe ou foi movida. Volte à página inicial do
+        Bloco de Notas.
+      </p>
+      <a href="/">Voltar ao início</a>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  @font-face {
+    font-family: "Bricolage Grotesque";
+    src: url("/fonts/BricolageGrotesque-var.woff2") format("woff2");
+    font-weight: 200 800;
+    font-style: normal;
+    font-display: swap;
+  }
+  :root {
+    --bg: #faf6ec;
+    --ink: #15322d;
+    --ink-soft: #3e4a46;
+    --teal: #0e5f55;
+    --teal-dark: #0a3f39;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    text-align: center;
+    padding: 24px;
+  }
+  .wrap {
+    max-width: 440px;
+  }
+  h1 {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    font-size: clamp(28px, 6vw, 40px);
+    margin: 0 0 12px;
+  }
+  p {
+    color: var(--ink-soft);
+    margin: 0 0 28px;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--teal);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 999px;
+    min-height: 44px;
+  }
+  a:hover {
+    background: var(--teal-dark);
+  }
+  a:focus-visible {
+    outline: 3px solid #f6c544;
+    outline-offset: 2px;
+  }
+</style>
