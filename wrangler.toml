@@ -3,3 +3,10 @@ compatibility_date = "2024-01-01"
 
 [assets]
 directory = "./dist"
+# Serves `privacidade.html` at `/privacidade` and redirects the `.html` URL to
+# it. This is already the default, but it decides the site's canonical URL
+# shape — the sitemap and the <link rel="canonical"> tags are written to match —
+# so it is pinned here rather than inherited.
+html_handling = "auto-trailing-slash"
+# Without this, unknown paths return a 404 with an empty body. Serves dist/404.html.
+not_found_handling = "404-page"
