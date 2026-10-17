@@ -1,5 +1,10 @@
 name = "bloco-de-notas"
 compatibility_date = "2024-01-01"
+# The site is served on its own domain only. Cloudflare's default *.workers.dev address and
+# the per-version preview URLs would each serve a full, indexable copy of every page, so both
+# are off (17 October 2026). The custom domain is attached in the dashboard and is unaffected.
+workers_dev = false
+preview_urls = false
 
 [assets]
 directory = "./dist"
