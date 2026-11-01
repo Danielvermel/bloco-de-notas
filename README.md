@@ -16,12 +16,16 @@ estudos em Vila Nova de Gaia. Site estático construído com
 ## Estrutura
 
 ```
-public/            imagens, tipos de letra, robots.txt, sitemap.xml (copiados tal e qual)
+public/            imagens, tipos de letra, robots.txt (copiados tal e qual)
 src/
+  content/blog/    artigos do blog, um ficheiro Markdown por artigo
+  content.config.js  campos obrigatórios de cada artigo (fontes, crédito da foto…)
   data/site.js     conteúdo do site — moradas, serviços, testemunhos, FAQ…
+  data/blog.js     lista dos artigos publicados, datas e tempo de leitura
   layouts/         estrutura HTML partilhada (meta tags, JSON-LD, tipos de letra)
   components/      cabeçalho, rodapé e as secções da página inicial
-  pages/           index.astro · privacidade.astro · 404.astro
+  pages/           index.astro · privacidade.astro · 404.astro · blog.astro ·
+                   blog/[slug].astro · sitemap.xml.js (gerado, inclui os artigos)
 astro.config.mjs   configuração do build
 wrangler.toml      configuração da Cloudflare (serve ./dist)
 ```
@@ -41,6 +45,21 @@ secção visível e o JSON-LD `FAQPage`, por isso basta editá-las num sítio.
   site anterior, para não haver um pedido bloqueante antes do primeiro render.
 - O CSS é minificado pelo esbuild em vez do Lightning CSS, que descartava a
   declaração `backdrop-filter` sem prefixo usada no cabeçalho fixo.
+
+## Blog
+
+Cada artigo é um ficheiro em `src/content/blog/<endereço>.md`; o nome do
+ficheiro é o URL (`/blog/<endereço>`). O cabeçalho do ficheiro tem o título, a
+descrição, a data, a palavra-chave (do Google Keyword Planner), a foto com o
+respetivo crédito e licença, e a lista de fontes (mínimo duas). O build falha
+se faltar algum destes campos.
+
+- As fotos ficam em `public/img/blog/<endereço>.webp` (1200×675) e vêm de
+  fontes livres (Wikimedia Commons, CC0 / domínio público / CC BY / CC BY-SA).
+  O crédito é mostrado por baixo da foto.
+- Um artigo com data futura só aparece no primeiro build a partir dessa data,
+  por isso dá para escrever artigos com antecedência.
+- O `sitemap.xml` é gerado no build e inclui os artigos publicados.
 
 ## Formulário de contacto
 
