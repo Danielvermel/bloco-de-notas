@@ -120,4 +120,63 @@ const chips = [
       max-width: 360px;
     }
   }
+
+  /*
+   * Phones: the first screen is the photo and the headline, nothing else.
+   * .hero-copy dissolves so its children become grid rows, the h1 moves up
+   * under the photo and the eyebrow, lede, buttons and chips follow below
+   * the fold. The ::before is an invisible spacer spanning the first two
+   * rows at the height of the screen under the sticky header; the photo's
+   * row is the flexible one, so it takes whatever the headline leaves.
+   */
+  @media (max-width: 640px) {
+    .hero .container {
+      grid-template-rows: minmax(0, 1fr) auto;
+      row-gap: 0;
+      padding-block-start: 16px;
+    }
+    .hero .container::before {
+      content: "";
+      grid-row: 1 / 3;
+      grid-column: 1;
+      min-height: calc(100svh - var(--header-h) - 16px);
+    }
+    .hero-copy {
+      display: contents;
+    }
+    .hero-media {
+      grid-row: 1;
+      grid-column: 1;
+      contain: size;
+      align-self: center;
+      height: calc(100% - 28px);
+      max-height: calc(min(360px, 100vw - 2 * var(--pad-x)) * 1.75);
+      margin-block-end: 28px;
+    }
+    .hero-photo,
+    .hero-photo img {
+      height: 100%;
+    }
+    .hero-photo img {
+      aspect-ratio: auto;
+    }
+    .hero h1 {
+      grid-row: 2;
+      grid-column: 1;
+      margin-block-end: 28px;
+    }
+    .hero .eyebrow {
+      grid-row: 3;
+      justify-self: start;
+    }
+    .hero .lede {
+      grid-row: 4;
+    }
+    .hero-cta {
+      grid-row: 5;
+    }
+    .chip-row {
+      grid-row: 6;
+    }
+  }
 </style>
