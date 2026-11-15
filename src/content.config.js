@@ -13,6 +13,8 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string().max(170),
     date: z.coerce.date(),
+    // Optional: set when an article is revised. Shown on the page and sent to Google.
+    updated: z.coerce.date().optional(),
     keyword: z.string(),
     image: z.string(),
     imageAlt: z.string(),

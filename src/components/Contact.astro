@@ -240,12 +240,23 @@ import { formEndpoint, interesses, site } from "../data/site.js";
     </div>
 
     <div class="map-embed">
-      <iframe
-        src={site.mapsEmbed}
-        title="Mapa com a localização do Bloco de Notas, Rua de Laborim 70, Vila Nova de Gaia"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        allowfullscreen></iframe>
+      <a class="map-link" href={site.mapsLink} rel="noopener" target="_blank">
+        <img
+          src={site.mapImage}
+          width="1600"
+          height="800"
+          loading="lazy"
+          decoding="async"
+          alt={`Mapa com a localização do Bloco de Notas, ${site.street}, ${site.locality}`}
+        />
+        <span class="map-cta">Abrir no Google Maps →</span>
+      </a>
+      <a
+        class="map-credit"
+        href="https://www.openstreetmap.org/copyright"
+        rel="noopener"
+        target="_blank">© OpenStreetMap</a
+      >
     </div>
   </div>
 </section>
@@ -547,11 +558,45 @@ import { formEndpoint, interesses, site } from "../data/site.js";
     background: var(--mint);
     box-shadow: var(--shadow-card);
   }
-  .map-embed iframe {
+  .map-embed {
+    position: relative;
+  }
+  .map-link {
+    display: block;
     width: 100%;
     height: 100%;
-    border: 0;
+  }
+  .map-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
+  }
+  .map-cta {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    background: var(--teal);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14.5px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    box-shadow: var(--shadow-card);
+  }
+  .map-link:hover .map-cta {
+    background: var(--teal-dark);
+  }
+  .map-credit {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.85);
+    color: #333;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-top-left-radius: 6px;
+    text-decoration: none;
   }
 
   @media (max-width: 960px) {
@@ -560,6 +605,10 @@ import { formEndpoint, interesses, site } from "../data/site.js";
     }
   }
   @media (max-width: 600px) {
+    /* Taller on phones, so the centre of the map is shown at a readable size. */
+    .map-embed {
+      aspect-ratio: 1 / 1;
+    }
     .field-row {
       grid-template-columns: 1fr;
     }

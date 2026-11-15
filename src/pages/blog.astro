@@ -32,6 +32,19 @@ const blogLd = {
   bodyClass="page-blog"
   jsonLd={[blogLd]}
 >
+  <Fragment slot="head">
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content="Blog do Bloco de Notas — ideias para estudar melhor" />
+    <meta
+      property="og:description"
+      content="Conselhos práticos para pais e alunos do 1.º ao 9.º ano, sempre com fontes."
+    />
+    <meta property="og:url" content={`${site.url}/blog`} />
+    <meta property="og:image" content={site.url + (latest?.data.image ?? site.ogImage)} />
+    <meta property="og:locale" content="pt_PT" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </Fragment>
   <Header prefix="/" homeHref="/" mobileCta />
   <main id="conteudo" class="blog">
     <div class="container">

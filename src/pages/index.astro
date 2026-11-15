@@ -7,6 +7,7 @@ import Services from "../components/Services.astro";
 import WhyUs from "../components/WhyUs.astro";
 import Gallery from "../components/Gallery.astro";
 import Testimonials from "../components/Testimonials.astro";
+import LatestPosts from "../components/LatestPosts.astro";
 import Faq from "../components/Faq.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
@@ -37,12 +38,6 @@ const organization = {
     dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     opens: site.opens,
     closes: site.closes,
-  },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: site.ratingValue,
-    bestRating: "5",
-    reviewCount: site.reviewCount,
   },
 };
 
@@ -117,6 +112,7 @@ const faqPage = {
     <WhyUs />
     <Gallery />
     <Testimonials />
+    <LatestPosts />
     <Faq />
     <Contact />
   </main>

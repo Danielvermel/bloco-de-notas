@@ -27,6 +27,7 @@ const articleLd = {
   description: d.description,
   image: site.url + d.image,
   datePublished: d.date.toISOString(),
+  dateModified: (d.updated ?? d.date).toISOString(),
   inLanguage: "pt-PT",
   mainEntityOfPage: url,
   author: { "@type": "Organization", name: site.name, url: `${site.url}/` },
@@ -63,7 +64,13 @@ const breadcrumbLd = {
     <meta property="og:url" content={url} />
     <meta property="og:image" content={site.url + d.image} />
     <meta property="og:locale" content="pt_PT" />
+    <meta property="og:site_name" content={site.name} />
     <meta property="article:published_time" content={d.date.toISOString()} />
+    {d.updated && <meta property="article:modified_time" content={d.updated.toISOString()} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={d.title} />
+    <meta name="twitter:description" content={d.description} />
+    <meta name="twitter:image" content={site.url + d.image} />
   </Fragment>
   <Header prefix="/" homeHref="/" mobileCta />
   <main id="conteudo" class="article">
@@ -78,6 +85,14 @@ const breadcrumbLd = {
         <p class="post-meta">
           <time datetime={d.date.toISOString()}>{formatDate(d.date)}</time>
           · {readingTime(post.body)} min de leitura
+          {
+            d.updated && (
+              <>
+                · Atualizado a{" "}
+                <time datetime={d.updated.toISOString()}>{formatDate(d.updated)}</time>
+              </>
+            )
+          }
         </p>
       </header>
 

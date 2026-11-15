@@ -22,10 +22,11 @@ export const site = {
   postalCode: "4400",
   country: "PT",
   mapsLink: "https://maps.app.goo.gl/eHxkJRCQUrFBP4hZ9",
-  mapsEmbed:
-    "https://www.google.com/maps?q=41.1065368,-8.6017534&z=17&output=embed",
-  // TODO: substituir pelo URL da ficha do Google Maps do centro.
-  reviewsLink: "#TODO-URL-GOOGLE-MAPS",
+  // Static image (OpenStreetMap) instead of a live Google Maps iframe, so the
+  // page loads nothing from Google until the visitor chooses to open the map.
+  mapImage: "/img/mapa-localizacao.webp",
+  // The Google Maps listing, where the reviews are shown.
+  reviewsLink: "https://maps.app.goo.gl/eHxkJRCQUrFBP4hZ9",
   lat: 41.1065368,
   lng: -8.6017534,
   hours: "Seg–Sex · 7h30–19h00",
@@ -33,8 +34,8 @@ export const site = {
   closes: "19:00",
   rating: "4,9",
   ratingValue: "4.9",
-  reviewCount: "7",
-  reviewsShown: "11 avaliações no Google",
+  // The one place the number of Google reviews is written (checked 15 Nov 2026).
+  reviewCount: 12,
   instagram: "https://www.instagram.com/centrodeestudos_blocodenotas/",
   facebook: "https://www.facebook.com/CentrodeEstudosBlocodeNotas",
   ogImage: "/img/og-image.jpg",
@@ -46,11 +47,12 @@ export const nav = [
   { href: "#porque-nos", label: "Porquê Nós" },
   { href: "#espaco", label: "O Espaço" },
   { href: "#faq", label: "FAQ" },
+  { href: "/blog", label: "Blog" },
   { href: "#contactos", label: "Contactos" },
 ];
 
 /** Footer navigation drops "Contactos" — the column below it already lists them. */
-export const footerNav = nav.slice(0, 4);
+export const footerNav = nav.slice(0, 5);
 
 export const stats = [
   { value: "4,9", suffix: "★", label: "Avaliação no Google" },

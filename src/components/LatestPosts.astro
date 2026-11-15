@@ -1,0 +1,102 @@
+---
+import { formatDate, getPublishedPosts } from "../data/blog.js";
+
+const posts = (await getPublishedPosts()).slice(0, 3);
+---
+
+{
+  posts.length > 0 && (
+    <section class="section" id="blog">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Blog</span>
+          <h2>Ideias para estudar melhor</h2>
+          <p class="lede">
+            Conselhos práticos para pais e alunos do Ensino Básico, escritos pela
+            nossa equipa e sempre com fontes.
+          </p>
+        </div>
+        <ul class="home-posts">
+          {posts.map((post) => (
+            <li>
+              <a class="home-post" href={`/blog/${post.id}`}>
+                <img
+                  src={post.data.image}
+                  alt=""
+                  width="1200"
+                  height="675"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div class="home-post-body">
+                  <time datetime={post.data.date.toISOString()}>
+                    {formatDate(post.data.date)}
+                  </time>
+                  <h3>{post.data.title}</h3>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a class="home-posts-all" href="/blog">Ver todos os artigos →</a>
+      </div>
+    </section>
+  )
+}
+
+<style is:global>
+  .home-posts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 24px;
+  }
+  .home-post {
+    display: block;
+    height: 100%;
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.18s ease;
+  }
+  .home-post:hover {
+    transform: translateY(-4px);
+  }
+  .home-post img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+  .home-post-body {
+    padding: 18px 20px 22px;
+  }
+  .home-post time {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .home-post h3 {
+    font-size: 18px;
+    line-height: 1.25;
+    margin: 0;
+  }
+  .home-posts-all {
+    font-weight: 700;
+    color: var(--teal);
+    text-decoration: none;
+  }
+  .home-posts-all:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 860px) {
+    .home-posts {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

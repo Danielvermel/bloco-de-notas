@@ -11,7 +11,7 @@ import { site, testimonials } from "../data/site.js";
         href={site.reviewsLink}
         rel="noopener"
         target="_blank"
-        aria-label={`Ver as 11 avaliações do Bloco de Notas no Google. Classificação média de ${site.rating} em 5.`}
+        aria-label={`Ver as ${site.reviewCount} avaliações do Bloco de Notas no Google. Classificação média de ${site.rating} em 5.`}
       >
         {site.rating}
         <svg class="star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
@@ -20,7 +20,7 @@ import { site, testimonials } from "../data/site.js";
           ></path></svg
         >
         <span class="sep" aria-hidden="true">·</span>
-        <span class="count">{site.reviewsShown}</span>
+        <span class="count">{site.reviewCount} avaliações no Google</span>
       </a>
     </div>
     <div class="testi-grid">

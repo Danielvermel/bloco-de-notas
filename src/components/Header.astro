@@ -23,7 +23,7 @@ const { prefix = "", homeHref = "#topo", mobileCta = false } = Astro.props;
         {
           nav.map((item) => (
             <li>
-              <a href={prefix + item.href}>{item.label}</a>
+              <a href={item.href.startsWith("/") ? item.href : prefix + item.href}>{item.label}</a>
             </li>
           ))
         }
@@ -50,7 +50,7 @@ const { prefix = "", homeHref = "#topo", mobileCta = false } = Astro.props;
     {
       nav.map((item) => (
         <li>
-          <a href={prefix + item.href}>{item.label}</a>
+          <a href={item.href.startsWith("/") ? item.href : prefix + item.href}>{item.label}</a>
         </li>
       ))
     }
@@ -207,7 +207,7 @@ const { prefix = "", homeHref = "#topo", mobileCta = false } = Astro.props;
     margin: 16px 0 20px;
   }
 
-  @media (max-width: 860px) {
+  @media (max-width: 1020px) {
     .main-nav {
       display: none;
     }

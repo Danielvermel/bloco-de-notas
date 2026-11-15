@@ -59,7 +59,14 @@ se faltar algum destes campos.
   O crédito é mostrado por baixo da foto.
 - Um artigo com data futura só aparece no primeiro build a partir dessa data,
   por isso dá para escrever artigos com antecedência.
+- A publicação é automática: todas as manhãs, o workflow
+  `.github/workflows/publish-scheduled.yml` verifica se há algum artigo cuja
+  data já chegou e que ainda não está no `sitemap.xml` do site; se houver,
+  faz um commit vazio em `main`, o que leva a Cloudflare a reconstruir e
+  publicar o site. Basta fazer push do artigo com a data certa.
 - O `sitemap.xml` é gerado no build e inclui os artigos publicados.
+- Ao rever um artigo, acrescente `updated: AAAA-MM-DD` ao cabeçalho: a data
+  aparece no artigo e segue para o Google (`dateModified`, sitemap).
 
 ## Formulário de contacto
 

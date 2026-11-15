@@ -36,11 +36,12 @@ const buildYear = new Date().getFullYear();
           {
             footerNav.map((item) => (
               <li>
-                <a href={prefix + item.href}>{item.label}</a>
+                <a href={item.href.startsWith("/") ? item.href : prefix + item.href}>
+                  {item.label}
+                </a>
               </li>
             ))
           }
-          <li><a href="/blog">Blog</a></li>
         </ul>
       </nav>
       <div class="footer-contact">

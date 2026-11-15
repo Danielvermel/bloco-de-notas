@@ -12,6 +12,15 @@ import { site } from "../data/site.js";
   bodyId="topo"
   bodyClass="page-legal"
 >
+  <Fragment slot="head">
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content="Política de Privacidade — Bloco de Notas" />
+    <meta property="og:url" content={`${site.url}/privacidade`} />
+    <meta property="og:image" content={site.url + site.ogImage} />
+    <meta property="og:locale" content="pt_PT" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </Fragment>
   <Header prefix="/" homeHref="/" mobileCta />
   <main id="conteudo" class="legal">
     <div class="container">
@@ -49,7 +58,14 @@ import { site } from "../data/site.js";
       </ul>
       <p>
         Não utilizamos cookies de rastreio nem ferramentas de análise de
-        tráfego.
+        tráfego. O mapa da página inicial é uma imagem estática: nada é pedido
+        ao Google Maps a menos que clique para o abrir.
+      </p>
+      <p>
+        O site está alojado na <strong>Cloudflare</strong>, que, como qualquer
+        serviço de alojamento, trata os dados técnicos indispensáveis para lhe
+        entregar as páginas (por exemplo, o endereço IP), por motivos de
+        funcionamento e segurança.
       </p>
       <p>
         Contamos, de forma anónima, quantas vezes são usados os botões de telefone, WhatsApp e email: fica registada a hora, o botão e a página, sem cookies, sem endereço IP e sem qualquer identificador. Essa contagem é guardada pela Teialoom, que mantém o site, nos servidores da Cloudflare.
@@ -82,12 +98,15 @@ import { site } from "../data/site.js";
         comerciais.
       </p>
       <p>
-        A sua mensagem é enviada para o nosso endereço de email, alojado pela <strong
+        O formulário de contacto é processado pela <strong>Formspree</strong>
+        (Formspree, Inc., sediada nos Estados Unidos), que recebe os dados que
+        preenche e os reencaminha para o nosso endereço de email, alojado pela <strong
           >Google (Gmail)</strong
-        >. A Google atua como nosso subcontratante e poderá processar os dados
-        nos seus servidores para nos permitir receber e ler a mensagem. Fora
-        isto, os seus dados não são comunicados a mais ninguém, salvo obrigação
-        legal.
+        >. A Formspree e a Google atuam como nossos subcontratantes e poderão
+        processar os dados nos seus servidores, incluindo fora da União
+        Europeia, ao abrigo das garantias previstas no RGPD para transferências
+        internacionais. Fora isto, os seus dados não são comunicados a mais
+        ninguém, salvo obrigação legal.
       </p>
 
       <h2>5. Durante quanto tempo guardamos os seus dados</h2>
