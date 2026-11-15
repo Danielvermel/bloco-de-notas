@@ -1,0 +1,48 @@
+# Publishes blog articles on their date, without anyone having to deploy.
+#
+# An article dated in the future is left out of the build until that date
+# (see src/data/blog.js), and Cloudflare only rebuilds the site when something
+# is pushed to main. So every morning this checks whether an article that is
+# now due is still missing from the live sitemap, and if so pushes an empty
+# commit, which makes Cloudflare rebuild and publish it. On days with nothing
+# due it does nothing.
+name: Publish scheduled articles
+
+on:
+  schedule:
+    - cron: "0 5 * * *" # every day, 05:00 UTC (05:00 or 06:00 in Portugal)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find articles that are due but not live
+        id: due
+        run: |
+          today=$(date -u +%F)
+          live=$(curl -fsS --retry 3 https://blocodenotas.com.pt/sitemap.xml)
+          due=""
+          for file in src/content/blog/*.md; do
+            slug=$(basename "$file" .md)
+            date=$(grep -m1 '^date:' "$file" | awk '{print $2}' | tr -d '"')
+            # ISO dates compare correctly as plain strings.
+            if [[ ! "$date" > "$today" ]] && ! grep -q "/blog/$slug<" <<<"$live"; then
+              due="$due $slug"
+            fi
+          done
+          echo "Due and not live:${due:- none}"
+          echo "slugs=${due# }" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger a rebuild
+        if: steps.due.outputs.slugs != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "Publish scheduled articles: ${{ steps.due.outputs.slugs }}"
+          git push
