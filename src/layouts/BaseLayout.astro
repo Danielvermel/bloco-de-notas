@@ -57,5 +57,9 @@ const {
   <body id={bodyId} class={bodyClass}>
     <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
     <slot />
+    {/* Counts taps on call, WhatsApp and email links: see src/scripts/clicks.js. */}
+    <script>
+      import "../scripts/clicks.js";
+    </script>
   </body>
 </html>
