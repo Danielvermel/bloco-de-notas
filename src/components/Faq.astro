@@ -36,9 +36,14 @@ import { faq } from "../data/site.js";
       faqList.querySelectorAll<HTMLButtonElement>(".faq-q"),
     );
 
+    // Where height can transition to auto, the CSS reads aria-expanded and
+    // nothing here needs measuring; the inline max-height is the fallback.
+    const nativeSize = CSS.supports("interpolate-size", "allow-keywords");
+
     const setOpen = (btn: HTMLButtonElement, open: boolean) => {
       const answer = btn.nextElementSibling as HTMLElement;
       btn.setAttribute("aria-expanded", open ? "true" : "false");
+      if (nativeSize) return;
       answer.style.maxHeight = open ? `${answer.scrollHeight}px` : "0px";
       answer.style.opacity = open ? "1" : "0";
     };
@@ -58,6 +63,7 @@ import { faq } from "../data/site.js";
 
     // Keep the open panel sized correctly on resize.
     window.addEventListener("resize", () => {
+      if (nativeSize) return;
       questions.forEach((btn) => {
         if (btn.getAttribute("aria-expanded") === "true") {
           const answer = btn.nextElementSibling as HTMLElement;
@@ -146,6 +152,22 @@ import { faq } from "../data/site.js";
     transition:
       max-height 0.38s ease,
       opacity 0.38s ease;
+  }
+  /* Same 0.38s open and close, to the content's own height with no
+     measuring script. The max-height rule above is the fallback. */
+  @supports (interpolate-size: allow-keywords) {
+    .faq-a {
+      interpolate-size: allow-keywords;
+      max-height: none;
+      height: 0;
+      transition:
+        height 0.38s ease,
+        opacity 0.38s ease;
+    }
+    .faq-q[aria-expanded="true"] + .faq-a {
+      height: auto;
+      opacity: 1;
+    }
   }
   .faq-a-inner {
     padding: 0 22px 22px;

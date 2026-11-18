@@ -43,7 +43,7 @@ import { gallery } from "../data/site.js";
   </div>
 </section>
 
-<dialog class="lightbox" id="lightbox">
+<dialog class="lightbox" id="lightbox" closedby="any">
   <button
     type="button"
     class="lightbox-close"
@@ -84,9 +84,12 @@ import { gallery } from "../data/site.js";
       lightbox.showModal();
     });
     lightboxClose.addEventListener("click", () => lightbox.close());
-    lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) lightbox.close();
-    });
+    // closedby="any" closes on a backdrop click; this covers browsers without it.
+    if (!("closedBy" in HTMLDialogElement.prototype)) {
+      lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) lightbox.close();
+      });
+    }
   }
 </script>
 

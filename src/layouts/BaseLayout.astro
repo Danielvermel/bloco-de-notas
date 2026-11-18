@@ -44,6 +44,27 @@ const {
 
     <slot name="head" />
 
+    {/* Prerenders a same-origin page once a link is hovered or pressed, so the
+        next page opens at once. Browsers without it ignore the tag. */}
+    <script type="speculationrules" is:inline>
+      {
+        "prerender": [
+          {
+            "where": {
+              "and": [
+                { "href_matches": "/*" },
+                { "not": { "href_matches": "/api/*" } },
+                { "not": { "href_matches": "/*\\?*" } },
+                { "not": { "href_matches": "/*.(pdf|zip|xml|ico)" } },
+                { "not": { "selector_matches": "[download]" } }
+              ]
+            },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
+
     {
       jsonLd.map((data) => (
         <script
