@@ -3,34 +3,48 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../data/site.js";
+import { breadcrumbList, business, graph, ids, webPage, website } from "../data/schema.js";
 import { formatDate, getPublishedPosts, readingTime } from "../data/blog.js";
 
 const posts = await getPublishedPosts();
 const [latest, ...rest] = posts;
 
-const blogLd = {
-  "@context": "https://schema.org",
-  "@type": "Blog",
-  name: "Blog do Bloco de Notas",
-  url: `${site.url}/blog`,
-  inLanguage: "pt-PT",
-  publisher: { "@type": "EducationalOrganization", name: site.name, url: `${site.url}/` },
-  blogPost: posts.map((p) => ({
-    "@type": "BlogPosting",
-    headline: p.data.title,
-    url: `${site.url}/blog/${p.id}`,
-    datePublished: p.data.date.toISOString(),
-  })),
-};
+const url = `${site.url}/blog`;
+const title = "Blog — Bloco de Notas · Centro de Estudos em Vila Nova de Gaia";
+const description =
+  "Conselhos práticos para pais e alunos do 1.º ao 9.º ano: métodos de estudo, regresso às aulas, calendário escolar, leitura e muito mais, sempre com fontes.";
+
+const jsonLd = graph(
+  business,
+  website,
+  webPage({ url, name: title, description, type: "CollectionPage", breadcrumb: true, extra: { mainEntity: { "@id": `${url}#blog` } } }),
+  breadcrumbList(url, [["Início", `${site.url}/`], ["Blog", url]]),
+  {
+    "@type": "Blog",
+    "@id": `${url}#blog`,
+    name: "Blog do Bloco de Notas",
+    url,
+    inLanguage: "pt-PT",
+    publisher: { "@id": ids.business },
+    blogPost: posts.map((p) => ({
+      "@type": "BlogPosting",
+      "@id": `${site.url}/blog/${p.id}#article`,
+      headline: p.data.title,
+      url: `${site.url}/blog/${p.id}`,
+      datePublished: p.data.date.toISOString(),
+      dateModified: (p.data.updated ?? p.data.date).toISOString(),
+    })),
+  },
+);
 ---
 
 <BaseLayout
-  title="Blog — Bloco de Notas · Centro de Estudos em Vila Nova de Gaia"
-  description="Conselhos práticos para pais e alunos do 1.º ao 9.º ano: métodos de estudo, regresso às aulas, calendário escolar, leitura e muito mais, sempre com fontes."
-  canonical={`${site.url}/blog`}
+  title={title}
+  description={description}
+  canonical={url}
   bodyId="topo"
   bodyClass="page-blog"
-  jsonLd={[blogLd]}
+  jsonLd={[jsonLd]}
 >
   <Fragment slot="head">
     <meta property="og:type" content="website" />

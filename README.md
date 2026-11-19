@@ -22,10 +22,12 @@ src/
   content.config.js  campos obrigatórios de cada artigo (fontes, crédito da foto…)
   data/site.js     conteúdo do site — moradas, serviços, testemunhos, FAQ…
   data/blog.js     lista dos artigos publicados, datas e tempo de leitura
+  data/schema.js   JSON-LD partilhado: o negócio (@id /#business), o site e cada página
   layouts/         estrutura HTML partilhada (meta tags, JSON-LD, tipos de letra)
   components/      cabeçalho, rodapé e as secções da página inicial
   pages/           index.astro · privacidade.astro · 404.astro · blog.astro ·
-                   blog/[slug].astro · sitemap.xml.js (gerado, inclui os artigos)
+                   blog/[slug].astro · sitemap.xml.js e llms.txt.js
+                   (gerados, incluem os artigos publicados)
 astro.config.mjs   configuração do build
 wrangler.toml      configuração da Cloudflare (serve ./dist)
 ```

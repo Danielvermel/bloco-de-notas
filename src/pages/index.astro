@@ -12,53 +12,40 @@ import Faq from "../components/Faq.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 import { faq, site } from "../data/site.js";
+import { business, graph, ids, serviceNodes, webPage, website } from "../data/schema.js";
 
-const organization = {
-  "@context": "https://schema.org",
-  "@type": "EducationalOrganization",
-  name: site.name,
-  url: `${site.url}/`,
-  description:
-    "Centro de estudos em Vila Nova de Gaia com apoio ao estudo e explicações para alunos do 1.º ao 9.º ano (Ensino Básico), em grupos pequenos, com transporte e refeições.",
-  telephone: site.phoneE164,
-  email: site.email,
-  image: site.url + site.ogImage,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: site.street,
-    addressLocality: site.locality,
-    postalCode: site.postalCode,
-    addressCountry: site.country,
-  },
-  geo: { "@type": "GeoCoordinates", latitude: site.lat, longitude: site.lng },
-  areaServed: { "@type": "City", name: site.locality },
-  sameAs: [site.instagram, site.facebook],
-  openingHoursSpecification: {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    opens: site.opens,
-    closes: site.closes,
-  },
-};
+const url = `${site.url}/`;
+const title = "Centro de Estudos em Vila Nova de Gaia · Bloco de Notas";
+const description =
+  "Centro de estudos em Vila Nova de Gaia, do 1.º ao 9.º ano. Apoio ao estudo, explicações, transporte e refeições, com acompanhamento personalizado.";
 
-// Generated from the same array the FAQ section renders, so the two can't drift.
-const faqPage = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faq.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
+// Generated from the same arrays the page renders (services, FAQ), so the
+// markup and the page can't drift. See src/data/schema.js.
+const jsonLd = graph(
+  business,
+  website,
+  webPage({ url, name: title, description, extra: { mainEntity: { "@id": ids.business } } }),
+  ...serviceNodes(),
+  {
+    "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    isPartOf: { "@id": `${url}#webpage` },
+    inLanguage: "pt-PT",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  },
+);
 ---
 
 <BaseLayout
-  title="Centro de Estudos em Vila Nova de Gaia · Bloco de Notas"
-  description="Centro de estudos em Vila Nova de Gaia, do 1.º ao 9.º ano. Apoio ao estudo, explicações, transporte e refeições, com acompanhamento personalizado."
-  canonical={`${site.url}/`}
+  title={title}
+  description={description}
+  canonical={url}
   robots="index, follow, max-image-preview:large"
-  jsonLd={[organization, faqPage]}
+  jsonLd={[jsonLd]}
 >
   <Fragment slot="head">
     <!-- Geo / local SEO -->
