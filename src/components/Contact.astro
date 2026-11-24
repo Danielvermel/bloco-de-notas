@@ -1,4 +1,5 @@
 ---
+import StreetMap from "./StreetMap.astro";
 import { formEndpoint, interesses, site } from "../data/site.js";
 ---
 
@@ -241,14 +242,7 @@ import { formEndpoint, interesses, site } from "../data/site.js";
 
     <div class="map-embed">
       <a class="map-link" href={site.mapsLink} rel="noopener" target="_blank">
-        <img
-          src={site.mapImage}
-          width="1600"
-          height="800"
-          loading="lazy"
-          decoding="async"
-          alt={`Mapa com a localização do Bloco de Notas, ${site.street}, ${site.locality}`}
-        />
+        <StreetMap />
         <span class="map-cta">Abrir no Google Maps →</span>
       </a>
       <a
@@ -565,12 +559,6 @@ import { formEndpoint, interesses, site } from "../data/site.js";
     display: block;
     width: 100%;
     height: 100%;
-  }
-  .map-link img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
   }
   .map-cta {
     position: absolute;

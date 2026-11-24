@@ -22,9 +22,6 @@ export const site = {
   postalCode: "4400",
   country: "PT",
   mapsLink: "https://maps.app.goo.gl/eHxkJRCQUrFBP4hZ9",
-  // Static image (OpenStreetMap) instead of a live Google Maps iframe, so the
-  // page loads nothing from Google until the visitor chooses to open the map.
-  mapImage: "/img/mapa-localizacao.webp",
   // The Google Maps listing, where the reviews are shown.
   reviewsLink: "https://maps.app.goo.gl/eHxkJRCQUrFBP4hZ9",
   lat: 41.1065368,

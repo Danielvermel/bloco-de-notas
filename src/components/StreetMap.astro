@@ -1,0 +1,251 @@
+---
+/**
+ * Hand-drawn map of the streets around the centre, in the site's own style:
+ * squared notebook paper, a highlighter stroke along Rua de Laborim and the
+ * door number on a blue-and-white tile, as on the houses in Gaia.
+ *
+ * Street lines are traced from OpenStreetMap (hence the credit in Contact)
+ * and simplified. Coordinates share one 1600×800 space; the viewBox crops it
+ * around the door, and "slice" keeps the door centred at any card shape.
+ */
+import { site } from "../data/site.js";
+
+const streets = [
+  { id: "m-escola", d: "M300 230 L380 268 L470 330 L545 395", name: "Rua da Escola de Laborim", minor: true },
+  { id: "m-baixo", d: "M545 395 L600 515 L660 640 L700 725", name: "Rua de Laborim de Baixo", minor: true },
+  { id: "m-rampa", d: "M590 200 L660 222 L715 226", name: "Rua Rampa de Laborim", minor: true },
+  { id: "m-carmo", d: "M760 75 L835 195 L890 300 L930 352 L985 392", name: "Rua N.ª Sr.ª do Carmo" },
+  { id: "m-flandor", d: "M840 402 L905 470 L965 540 L1030 612 L1080 665", name: "Rua António Ferreira Flandor" },
+  { id: "m-palmeira", d: "M770 452 L825 560 L880 652 L915 725", name: "Rua da Palmeira", minor: true },
+  { id: "m-aureliano", d: "M985 392 L1035 455 L1085 505 L1130 545", name: "Rua Aureliano Lima", minor: true },
+];
+---
+
+<svg
+  class="street-map"
+  viewBox="300 75 1000 650"
+  preserveAspectRatio="xMidYMid slice"
+  role="img"
+  aria-label={`Mapa desenhado das ruas à volta do Bloco de Notas, ${site.street}, ${site.locality}, entre a A1 e a Rua Nossa Senhora do Carmo`}
+>
+  <defs>
+    <pattern id="m-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0 H0 V28" fill="none" stroke="var(--teal)" stroke-opacity=".09" stroke-width="1.4"></path>
+    </pattern>
+  </defs>
+
+  <!-- Squared paper -->
+  <rect x="0" y="0" width="1600" height="800" fill="#FFFDF7"></rect>
+  <rect x="0" y="0" width="1600" height="800" fill="url(#m-grid)"></rect>
+
+  <!-- Parque de Laborim -->
+  <path
+    d="M1020 560 C1050 540 1110 548 1135 575 C1158 600 1140 640 1100 648 C1060 655 1015 630 1008 600 C1004 582 1008 570 1020 560 Z"
+    fill="#CFE6C9"></path>
+  <text class="m-place m-park" x="1078" y="602">Parque de Laborim</text>
+
+  <!-- A1 and EN1 -->
+  <g class="m-road m-motorway">
+    <path id="m-a1" d="M420 75 L560 330 L640 500 L720 680 L770 800"></path>
+  </g>
+  <g class="m-road m-main">
+    <path id="m-en1" d="M650 75 L690 140 L716 230 L736 330 L746 450 L745 560 L720 680 L690 800"></path>
+  </g>
+
+  <!-- Streets -->
+  <g class="m-road">
+    {streets.map((s) => <path id={s.id} d={s.d} class:list={{ "m-minor": s.minor }}></path>)}
+    <path id="m-laborim" d="M560 418 L640 412 L730 396 L830 398 L885 386 L940 381 L985 393 L1060 364 L1140 338 L1230 312"></path>
+  </g>
+
+  <!-- Highlighter along Rua de Laborim -->
+  <path class="m-hl" d="M560 418 L640 412 L730 396 L830 398 L885 386 L940 381 L985 393 L1060 364 L1140 338 L1230 312" pathLength="1"></path>
+
+  <!-- Street names -->
+  <g class="m-label">
+    {streets.map((s) => (
+      <text class:list={{ "m-small": s.minor }}><textPath href={`#${s.id}`} startOffset="50%" text-anchor="middle" dy="-12">{s.name}</textPath></text>
+    ))}
+    <text class="m-strong"><textPath href="#m-laborim" startOffset="13%" text-anchor="middle">Rua de Laborim</textPath></text>
+    <text class="m-strong"><textPath href="#m-laborim" startOffset="80%" text-anchor="middle">Rua de Laborim</textPath></text>
+    <text><textPath href="#m-en1" startOffset="20%" text-anchor="middle">Rua Fonte dos Arrependidos</textPath></text>
+  </g>
+
+  <!-- Road shields -->
+  <g class="m-shield">
+    <rect x="566" y="430" width="44" height="26" rx="5" fill="#C2413A"></rect>
+    <text x="588" y="449">A1</text>
+    <rect x="738" y="586" width="50" height="26" rx="5" fill="#E08A1E"></rect>
+    <text x="763" y="605">EN1</text>
+  </g>
+
+  <!-- School and bus stops -->
+  <g class="m-poi">
+    <rect x="456" y="404" width="20" height="20" rx="4" fill="var(--teal)"></rect>
+    <path d="M461 418 V412 L466 408 L471 412 V418" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"></path>
+    <text class="m-place" x="466" y="446">Escola Básica</text>
+    <text class="m-place" x="466" y="464">Laborim de Baixo</text>
+
+    <circle cx="760" cy="268" r="9" fill="#fff" stroke="var(--teal)" stroke-width="3"></circle>
+    <text class="m-place m-end" x="744" y="274">Paragem Laborim · UTIC</text>
+    <circle cx="768" cy="520" r="9" fill="#fff" stroke="var(--teal)" stroke-width="3"></circle>
+    <text class="m-place m-end" x="752" y="526">Paragem Laborim · Semáforos</text>
+  </g>
+
+  <!-- The door: pin, tile with the number, name card -->
+  <g class="m-door">
+    <g class="m-pin">
+      <ellipse cx="800" cy="398" rx="14" ry="5" fill="#062B27" opacity=".2"></ellipse>
+      <path d="M800 398 C788 378 770 366 770 344 A30 30 0 0 1 830 344 C830 366 812 378 800 398 Z" fill="var(--teal)" stroke="#fff" stroke-width="3"></path>
+      <circle cx="800" cy="344" r="11" fill="var(--yellow)"></circle>
+    </g>
+    <g class="m-tile" transform="translate(-14 -88) rotate(-5 865 430)">
+      <rect x="840" y="408" width="52" height="46" rx="4" fill="#fff" stroke="#1F4E9C" stroke-width="3"></rect>
+      <rect x="845" y="413" width="42" height="36" rx="2" fill="none" stroke="#1F4E9C" stroke-width="1.2"></rect>
+      <text x="866" y="441">70</text>
+    </g>
+    <text class="m-name" x="800" y="300">Bloco de Notas</text>
+  </g>
+</svg>
+
+<style is:global>
+  .street-map {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .street-map .m-road path {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 15;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    paint-order: stroke;
+    filter: drop-shadow(0 0 1.2px rgba(10, 60, 55, 0.55));
+  }
+  .street-map .m-road path.m-minor {
+    stroke-width: 11;
+  }
+  .street-map .m-motorway path {
+    stroke: #F3C9C2;
+    stroke-width: 26;
+  }
+  .street-map .m-main path {
+    stroke: #F8DDB0;
+    stroke-width: 18;
+  }
+  .street-map .m-hl {
+    fill: none;
+    stroke: var(--yellow);
+    stroke-opacity: 0.75;
+    stroke-width: 24;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    mix-blend-mode: multiply;
+  }
+  .street-map text {
+    font-family: var(--font-head);
+    fill: var(--ink);
+  }
+  .street-map .m-label text {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .street-map .m-label text.m-small {
+    font-size: 13px;
+    font-weight: 500;
+    fill: var(--body);
+  }
+  .street-map .m-label text.m-strong {
+    font-size: 17px;
+    font-weight: 800;
+  }
+  .street-map .m-place {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    fill: var(--teal-dark);
+    text-anchor: middle;
+  }
+  .street-map .m-place.m-end {
+    text-anchor: end;
+    paint-order: stroke;
+    stroke: #FFFDF7;
+    stroke-width: 5px;
+  }
+  .street-map .m-park {
+    fill: #2F6B3A;
+    font-style: italic;
+  }
+  .street-map .m-shield text {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 800;
+    fill: #fff;
+    text-anchor: middle;
+  }
+  .street-map .m-tile text {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 24px;
+    font-weight: 700;
+    fill: #1F4E9C;
+    text-anchor: middle;
+  }
+  .street-map .m-name {
+    font-size: 20px;
+    font-weight: 800;
+    fill: var(--teal-dark);
+    text-anchor: middle;
+    paint-order: stroke;
+    stroke: #FFFDF7;
+    stroke-width: 6px;
+    stroke-linejoin: round;
+  }
+
+  /* Phones show a narrower slice at a smaller scale: larger labels there. */
+  @media (max-width: 600px) {
+    .street-map .m-label text {
+      font-size: 21px;
+    }
+    .street-map .m-label text.m-small {
+      font-size: 18px;
+    }
+    .street-map .m-label text.m-strong {
+      font-size: 24px;
+    }
+    .street-map .m-place {
+      font-size: 18px;
+    }
+  }
+
+  /* When the map scrolls into view, the highlighter runs along Rua de
+     Laborim and the pin drops onto the door. */
+  @keyframes m-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+  }
+  @keyframes m-drop {
+    from {
+      opacity: 0;
+      transform: translateY(-26px);
+    }
+  }
+  @keyframes m-fade {
+    from {
+      opacity: 0;
+    }
+  }
+  .map-embed[data-reveal="shown"] .m-hl {
+    animation: m-draw 1.1s var(--ease-out) 0.35s backwards;
+  }
+  .map-embed[data-reveal="shown"] .m-pin {
+    animation: m-drop 0.5s var(--ease-out) 0.9s backwards;
+  }
+  .map-embed[data-reveal="shown"] .m-tile {
+    /* Opacity only: a CSS transform would replace the tile's tilt. */
+    animation: m-fade 0.4s var(--ease-out) 1.15s backwards;
+  }
+</style>
