@@ -1,7 +1,7 @@
 ---
 title: "Seguro escolar: o que cobre e o que fica de fora"
 description: "O que o seguro escolar cobre, o trajeto casa-escola, as exclusões, como participar um acidente e porque não abrange o centro de estudos nem a carrinha."
-date: 2026-11-29
+date: 2026-11-27
 keyword: "seguro escolar"
 image: "/img/blog/seguro-escolar-o-que-cobre.webp"
 imageAlt: "Cartaz do Vítor Fernandes, agente de seguros: «Acidentes pessoais e responsabilidade civil. Será o seguro da escola, ATL ou clube suficientes?», com uma mochila escolar e um grupo de crianças"
