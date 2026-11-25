@@ -4,8 +4,9 @@ import { nav, site } from "../data/site.js";
 /**
  * `prefix` is "" on the homepage (plain #anchors) and "/" on sub-pages, where
  * the same links have to travel back to the homepage first.
- * `mobileCta` adds the "Contacte-nos" button inside the mobile panel — needed
- * on sub-pages, where the header CTA is the only way back to the form.
+ * `mobileCta` adds the "Contacte-nos" button inside the mobile panel. Every
+ * page sets it: the header CTA is hidden on phones and the menu has no
+ * Contactos link.
  */
 const { prefix = "", homeHref = "#topo", mobileCta = false } = Astro.props;
 ---

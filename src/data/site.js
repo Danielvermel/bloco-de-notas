@@ -43,13 +43,13 @@ export const nav = [
   { href: "#servicos", label: "Serviços" },
   { href: "#porque-nos", label: "Porquê Nós" },
   { href: "#espaco", label: "O Espaço" },
-  { href: "#faq", label: "FAQ" },
   { href: "/blog", label: "Blog" },
-  { href: "#contactos", label: "Contactos" },
 ];
 
-/** Footer navigation drops "Contactos" — the column below it already lists them. */
-export const footerNav = nav.slice(0, 5);
+/** No "Contactos" link: the header's "Contacte-nos" button already goes there,
+ * and the footer has its own Contactos column. The FAQ stays reachable from
+ * the footer only, to keep the top menu short. */
+export const footerNav = [...nav.slice(0, 3), { href: "#faq", label: "FAQ" }, ...nav.slice(3)];
 
 export const stats = [
   { value: "4,9", suffix: "★", label: "Avaliação no Google" },
