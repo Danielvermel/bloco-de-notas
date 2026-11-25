@@ -24,8 +24,11 @@ import { services } from "../data/site.js";
                 set:html={s.icon}
               />
             </div>
-            <h3>{s.title}</h3>
+            <h3>
+              <a class="svc-link" href={`/servicos/${s.slug}`}>{s.title}</a>
+            </h3>
             <p>{s.text}</p>
+            <span class="svc-more" aria-hidden="true">Saber mais →</span>
           </article>
         ))
       }
@@ -40,6 +43,9 @@ import { services } from "../data/site.js";
     gap: 22px;
   }
   .svc-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     background: var(--card);
     border: 1px solid var(--hairline);
     border-radius: var(--radius-card);
@@ -73,6 +79,32 @@ import { services } from "../data/site.js";
   }
   .svc-card h3 {
     margin-bottom: 8px;
+  }
+  .svc-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  /* The whole card is the link; the title stays the accessible name. */
+  .svc-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .svc-link:focus-visible {
+    outline: none;
+  }
+  .svc-card:has(.svc-link:focus-visible) {
+    outline: 3px solid var(--yellow);
+    outline-offset: 2px;
+  }
+  .svc-more {
+    display: inline-block;
+    margin-top: auto;
+    padding-top: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--teal);
   }
   .svc-card p {
     color: var(--body);
@@ -108,6 +140,9 @@ import { services } from "../data/site.js";
     .svc-card p {
       grid-area: text;
       margin-top: 12px;
+    }
+    .svc-more {
+      grid-column: 1 / -1;
     }
   }
 </style>

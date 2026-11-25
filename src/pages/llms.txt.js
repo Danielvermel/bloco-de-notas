@@ -16,7 +16,7 @@ export async function GET() {
   const lines = [
     `# ${site.name}`,
     "",
-    `> O Bloco de Notas é um centro de estudos em ${site.locality} para alunos do 1.º ao 9.º ano (Ensino Básico). Faz apoio ao estudo diário e explicações individuais ou em pequeno grupo, com professores qualificados, transporte entre a escola e o centro, refeições e lanches, e atividades de verão. Está aberto de ${hours}.`,
+    `> O Bloco de Notas é um centro de estudos em ${site.locality} para alunos do 1.º ao 9.º ano (Ensino Básico). Faz apoio ao estudo diário e explicações individuais ou em pequeno grupo, com professores qualificados, transporte entre a escola e o centro, refeições e lanches, e atividades de verão. Muitos pais procuram-no como ATL: o horário e a logística são parecidos, mas o tempo é passado a estudar com professores. Está aberto de ${hours}.`,
     "",
     `- Morada: ${site.street}, ${site.locality}`,
     `- Telemóvel e WhatsApp: ${site.phone}`,
@@ -27,7 +27,7 @@ export async function GET() {
     "## Páginas principais",
     "",
     `- [Página inicial](${site.url}/): serviços, espaço, testemunhos de pais, perguntas frequentes e contactos.`,
-    `- [Serviços](${site.url}/#servicos): ${services.map((s) => s.title).join(", ")}.`,
+    ...services.map((s) => `- [${s.title}](${site.url}/servicos/${s.slug}): ${s.text}`),
     `- [Perguntas frequentes](${site.url}/#faq): ${faq.length} respostas sobre anos de escolaridade, explicações, transporte, grupos, horários e valores.`,
     `- [Contactos](${site.url}/#contactos): morada, telemóvel, email, horário e formulário para marcar uma visita.`,
     `- [Blog](${site.url}/blog): artigos para pais e alunos do Ensino Básico, cada um com as fontes em que se apoia.`,

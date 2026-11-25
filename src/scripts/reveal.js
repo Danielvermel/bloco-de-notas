@@ -17,6 +17,8 @@ const GROUPS = [
   ".post-feature",
   ".post-grid > li",
   ".related li",
+  ".svc-points > li",
+  ".svc-others > li",
 ];
 const STAGGER = 0.06; // seconds between siblings
 const MAX_STEPS = 5; // later siblings share the last delay

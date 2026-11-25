@@ -1,4 +1,4 @@
-import { site } from "../data/site.js";
+import { services, site } from "../data/site.js";
 import { getPublishedPosts } from "../data/blog.js";
 
 /** Built from the published articles, so a new article lands here on its own. */
@@ -8,6 +8,7 @@ export async function GET() {
     `  <url>\n    <loc>${loc}</loc>\n${lastmod ? `    <lastmod>${lastmod}</lastmod>\n` : ""}    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
   const urls = [
     entry(`${site.url}/`, "monthly", "1.0"),
+    ...services.map((s) => entry(`${site.url}/servicos/${s.slug}`, "monthly", "0.9")),
     entry(`${site.url}/blog`, "weekly", "0.8", posts[0]?.data.date.toISOString().slice(0, 10)),
     ...posts.map((p) => entry(`${site.url}/blog/${p.id}`, "yearly", "0.6", (p.data.updated ?? p.data.date).toISOString().slice(0, 10))),
     entry(`${site.url}/privacidade`, "yearly", "0.3"),

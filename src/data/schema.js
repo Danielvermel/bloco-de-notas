@@ -87,16 +87,20 @@ export const breadcrumbList = (url, trail) => ({
   })),
 });
 
+/** A service's own page, and the @id its Service node carries everywhere. */
+export const serviceUrl = (slug) => `${site.url}/servicos/${slug}`;
+
 /** One Service per card in the homepage's Serviços section, worded as printed. */
-export const serviceNodes = () =>
-  services.map((s, i) => ({
-    "@type": "Service",
-    "@id": `${site.url}/#servico-${i + 1}`,
-    name: s.title,
-    description: s.text,
-    url: `${site.url}/#servicos`,
-    provider: { "@id": ids.business },
-    areaServed: { "@type": "City", name: site.locality },
-  }));
+export const serviceNode = (s) => ({
+  "@type": "Service",
+  "@id": `${serviceUrl(s.slug)}#servico`,
+  name: s.title,
+  description: s.text,
+  url: serviceUrl(s.slug),
+  provider: { "@id": ids.business },
+  areaServed: { "@type": "City", name: site.locality },
+});
+
+export const serviceNodes = () => services.map(serviceNode);
 
 export const graph = (...nodes) => ({ "@context": "https://schema.org", "@graph": nodes });

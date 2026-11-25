@@ -1,0 +1,442 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Contact from "../../components/Contact.astro";
+import Footer from "../../components/Footer.astro";
+import { services, site, testimonials } from "../../data/site.js";
+import { servicePages } from "../../data/servicos.js";
+import { breadcrumbList, business, graph, serviceNode, serviceUrl, webPage, website } from "../../data/schema.js";
+
+export function getStaticPaths() {
+  return services.map((service) => {
+    const page = servicePages[service.slug];
+    if (!page) throw new Error(`servicos.js has no page for "${service.slug}"`);
+    return { params: { slug: service.slug }, props: { service, page } };
+  });
+}
+
+const { service, page } = Astro.props;
+const url = serviceUrl(service.slug);
+const others = services.filter((s) => s.slug !== service.slug);
+const quote = page.testimonial !== undefined ? testimonials[page.testimonial] : null;
+
+const jsonLd = graph(
+  business,
+  website,
+  webPage({
+    url,
+    name: page.title,
+    description: page.description,
+    breadcrumb: true,
+    extra: {
+      mainEntity: { "@id": `${url}#servico` },
+      primaryImageOfPage: { "@type": "ImageObject", url: site.url + page.image.src },
+    },
+  }),
+  breadcrumbList(url, [["Início", `${site.url}/`], [service.title, url]]),
+  { ...serviceNode(service), description: page.description, image: site.url + page.image.src },
+  {
+    "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    isPartOf: { "@id": `${url}#webpage` },
+    inLanguage: "pt-PT",
+    mainEntity: page.faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  },
+);
+---
+
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  canonical={url}
+  robots="index, follow, max-image-preview:large"
+  bodyId="topo"
+  bodyClass="page-service"
+  jsonLd={[jsonLd]}
+>
+  <Fragment slot="head">
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={page.h1} />
+    <meta property="og:description" content={page.description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={site.url + site.ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="pt_PT" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={page.h1} />
+    <meta name="twitter:description" content={page.description} />
+    <meta name="twitter:image" content={site.url + site.ogImage} />
+  </Fragment>
+  <Header prefix="/" homeHref="/" mobileCta />
+  <main id="conteudo" class="service">
+    <section class="container svc-hero">
+      <div class="svc-hero-copy">
+        <nav class="crumbs" aria-label="Localização">
+          <a href="/">Início</a> <span aria-hidden="true">/</span>
+          <a href="/#servicos">Serviços</a>
+        </nav>
+        <span class="eyebrow">{service.title}</span>
+        <h1>{page.h1}</h1>
+        <p class="lede">{page.lede}</p>
+        <div class="svc-hero-actions">
+          <a class="btn btn-primary" href="#contactos">Marcar uma visita</a>
+          <a class="btn btn-outline" href={site.whatsapp} rel="noopener" target="_blank">
+            WhatsApp {site.phoneSpoken}
+          </a>
+        </div>
+        <p class="svc-hero-meta">
+          <span class="star" aria-hidden="true">★</span>
+          {site.rating} no Google · {site.hours}
+        </p>
+      </div>
+      <figure class="svc-hero-photo">
+        <img
+          src={page.image.src}
+          alt={page.image.alt}
+          width={page.image.w}
+          height={page.image.h}
+          fetchpriority="high"
+        />
+      </figure>
+    </section>
+
+    <section class="section svc-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">{service.title}</span>
+          <h2>{page.pointsTitle}</h2>
+        </div>
+        <ul class="svc-points">
+          {
+            page.points.map((p) => (
+              <li>
+                <h3>{p.title}</h3>
+                <p>{p.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    {
+      page.escolas && (
+        <section class="container svc-schools" aria-labelledby="escolas">
+          <h2 id="escolas">Escolas de onde fazemos o transporte</h2>
+          <ul>
+            {page.escolas.map((e) => <li>{e}</li>)}
+          </ul>
+          <p>Outra escola? <a href="#contactos">Fale connosco</a>.</p>
+        </section>
+      )
+    }
+
+    {
+      quote && (
+        <section class="container svc-quote">
+          <blockquote>
+            <p>«{quote.quote}»</p>
+            <footer>
+              {quote.name} · <a href={site.reviewsLink} rel="noopener" target="_blank">avaliação no Google</a>
+            </footer>
+          </blockquote>
+        </section>
+      )
+    }
+
+    <section class="section bg-mint" id="faq">
+      <div class="container">
+        <div class="section-head is-centered">
+          <span class="eyebrow no-bar">Perguntas frequentes</span>
+          <h2>Sobre {service.title.toLowerCase()}</h2>
+        </div>
+        <div class="svc-faq">
+          {
+            page.faq.map((item, i) => (
+              <details open={i === 0}>
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="section svc-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Outros serviços</span>
+          <h2>Tudo num só lugar</h2>
+        </div>
+        <ul class="svc-others">
+          {
+            others.map((s) => (
+              <li>
+                <a href={`/servicos/${s.slug}`}>
+                  <span class:list={["icon-chip", { "chip-yellow": s.yellow }]}>
+                    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" set:html={s.icon} />
+                  </span>
+                  <span class="svc-other-title">{s.title}</span>
+                  <span class="svc-other-text">{s.text}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <Contact interesse={page.interesse} />
+  </main>
+  <Footer prefix="/" homeHref="/" />
+</BaseLayout>
+
+<style is:global>
+  .crumbs {
+    font-size: 14px;
+    margin-bottom: 18px;
+    color: var(--body);
+  }
+  .crumbs a {
+    color: var(--teal);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .svc-hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+    padding-block: clamp(32px, 5vw, 64px) clamp(16px, 3vw, 32px);
+  }
+  .svc-hero h1 {
+    font-size: clamp(32px, 4.6vw, 54px);
+    line-height: 1.06;
+    margin-bottom: 18px;
+  }
+  .svc-hero .lede {
+    margin-bottom: 26px;
+  }
+  .svc-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .svc-hero-meta {
+    margin: 20px 0 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .svc-hero-meta .star {
+    color: var(--yellow);
+  }
+  .svc-hero-photo {
+    margin: 0;
+  }
+  .svc-hero-photo img {
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    border-radius: var(--radius-img);
+    box-shadow: var(--shadow-float);
+  }
+
+  .svc-points {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .svc-points li {
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-top: 3px solid var(--yellow);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+  }
+  .svc-points h3 {
+    margin-bottom: 8px;
+  }
+  .svc-points p {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .svc-schools {
+    max-width: 820px;
+    padding-bottom: var(--pad-y);
+  }
+  .svc-schools h2 {
+    font-size: clamp(23px, 2.6vw, 30px);
+  }
+  .svc-schools ul {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .svc-schools li {
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-left: 3px solid var(--teal);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .svc-schools p {
+    margin: 0;
+  }
+  .svc-quote {
+    max-width: 820px;
+    padding-bottom: var(--pad-y);
+  }
+  .svc-quote blockquote {
+    margin: 0;
+    padding-left: 22px;
+    border-left: 3px solid var(--yellow);
+  }
+  .svc-quote p {
+    font-family: var(--font-head);
+    color: var(--ink);
+    font-size: clamp(19px, 2.2vw, 25px);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+  .svc-quote footer {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .svc-faq {
+    max-width: 780px;
+    margin-inline: auto;
+    display: grid;
+    gap: 12px;
+  }
+  .svc-faq details {
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    padding: 0 22px;
+  }
+  .svc-faq summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 18px 28px 18px 0;
+    position: relative;
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 17px;
+  }
+  .svc-faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .svc-faq summary::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    color: var(--teal);
+    transition: transform 0.2s ease;
+  }
+  .svc-faq details[open] summary::after {
+    transform: translateY(-50%) rotate(45deg);
+  }
+  .svc-faq details p {
+    margin: 0 0 18px;
+  }
+
+  .svc-others {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .svc-others a {
+    display: block;
+    height: 100%;
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    text-decoration: none;
+    color: var(--body);
+    box-shadow: var(--shadow-card);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .svc-others a:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 44px -22px rgba(10, 60, 55, 0.32);
+  }
+  /* Same chip as the homepage cards (Services.astro isn't on this page). */
+  .svc-others .icon-chip {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: var(--mint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--teal);
+    margin-bottom: 16px;
+  }
+  .svc-others .icon-chip.chip-yellow {
+    background: #fbe7a0;
+  }
+  .svc-others .icon-chip svg {
+    width: 29px;
+    height: 29px;
+  }
+  .svc-other-title {
+    display: block;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 19px;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .svc-other-title::after {
+    content: " →";
+    color: var(--teal);
+  }
+  .svc-other-text {
+    display: block;
+    font-size: 14.5px;
+  }
+
+  @media (max-width: 960px) {
+    .svc-hero {
+      grid-template-columns: 1fr;
+    }
+    .svc-hero-photo img {
+      max-height: 360px;
+    }
+    .svc-points,
+    .svc-others {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 600px) {
+    .svc-points,
+    .svc-others {
+      grid-template-columns: 1fr;
+    }
+    .svc-hero-actions .btn {
+      flex: 1 1 100%;
+    }
+  }
+</style>

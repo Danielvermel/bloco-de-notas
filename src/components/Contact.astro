@@ -1,6 +1,9 @@
 ---
 import StreetMap from "./StreetMap.astro";
 import { formEndpoint, interesses, site } from "../data/site.js";
+
+/** `interesse` preselects the form's "Interesse" option (service pages). */
+const { interesse } = Astro.props;
 ---
 
 <section class="section" id="contactos">
@@ -201,8 +204,8 @@ import { formEndpoint, interesses, site } from "../data/site.js";
         <div class="field">
           <label for="cf-interesse">Interesse</label>
           <select id="cf-interesse" name="interesse" required>
-            <option value="" disabled selected>Selecione uma opção</option>
-            {interesses.map((o) => <option>{o}</option>)}
+            <option value="" disabled selected={!interesse}>Selecione uma opção</option>
+            {interesses.map((o) => <option selected={o === interesse}>{o}</option>)}
           </select>
         </div>
         <div class="field">

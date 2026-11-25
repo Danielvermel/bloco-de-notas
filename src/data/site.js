@@ -58,26 +58,33 @@ export const stats = [
   { value: "Incluídos", label: "Transporte e refeições" },
 ];
 
-/** Phosphor Icons (duotone), inlined so the page makes no icon-font request. */
+/**
+ * Phosphor Icons (duotone), inlined so the page makes no icon-font request.
+ * `slug` is the service page, /servicos/<slug> (content in servicos.js).
+ */
 export const services = [
   {
     title: "Apoio ao Estudo",
+    slug: "apoio-ao-estudo",
     text: "Acompanhamento pedagógico para alunos do 1.º ao 9.º ano, nas mais diversas disciplinas do Ensino Básico.",
     icon: '<path d="M48,72h64V184H48ZM190.64,38.39a8,8,0,0,0-9.5-6.21l-46.81,10a8.07,8.07,0,0,0-6.15,9.57L139.79,107l62.46-13.42Z" opacity="0.2"/><path d="M231.65,194.55,198.46,36.75a16,16,0,0,0-19-12.39L132.65,34.42a16.08,16.08,0,0,0-12.3,19l33.19,157.8A16,16,0,0,0,169.16,224a16.25,16.25,0,0,0,3.38-.36l46.81-10.06A16.09,16.09,0,0,0,231.65,194.55ZM136,50.15c0-.06,0-.09,0-.09l46.8-10,3.33,15.87L139.33,66Zm6.62,31.47,46.82-10.05,3.34,15.9L146,97.53Zm6.64,31.57,46.82-10.06,13.3,63.24-46.82,10.06ZM216,197.94l-46.8,10-3.33-15.87L212.67,182,216,197.85C216,197.91,216,197.94,216,197.94ZM104,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V48A16,16,0,0,0,104,32ZM56,48h48V64H56Zm0,32h48v96H56Zm48,128H56V192h48v16Z"/>',
   },
   {
     title: "Explicações Individuais",
+    slug: "explicacoes",
     text: "Apoio específico do 1.º ao 9.º ano, por professores qualificados e ajustado às dificuldades de cada aluno.",
     yellow: true,
     icon: '<path d="M192,80v96H104a32,32,0,1,0-32-32H64V80Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H53.39a8,8,0,0,0,7.23-4.57,48,48,0,0,1,86.76,0,8,8,0,0,0,7.23,4.57H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM80,144a24,24,0,1,1,24,24A24,24,0,0,1,80,144Zm136,56H159.43a64.39,64.39,0,0,0-28.83-26.16,40,40,0,1,0-53.2,0A64.39,64.39,0,0,0,48.57,200H40V56H216ZM56,96V80a8,8,0,0,1,8-8H192a8,8,0,0,1,8,8v96a8,8,0,0,1-8,8H176a8,8,0,0,1,0-16h8V88H72v8a8,8,0,0,1-16,0Z"/>',
   },
   {
     title: "Transporte e Refeições",
+    slug: "transporte-e-refeicoes",
     text: "Transporte entre a escola e o centro, com refeições e lanches assegurados, em conforto e segurança.",
     icon: '<path d="M248,112v64a8,8,0,0,1-8,8H216a24,24,0,0,0-48,0H104a24,24,0,0,0-48,0H32a8,8,0,0,1-8-8V112Z" opacity="0.2"/><path d="M254.07,106.79,208.53,53.73A16,16,0,0,0,196.26,48H32A16,16,0,0,0,16,64V176a16,16,0,0,0,16,16H49a32,32,0,0,0,62,0h50a32,32,0,0,0,62,0h17a16,16,0,0,0,16-16V112A8,8,0,0,0,254.07,106.79ZM230.59,104H176V64h20.26ZM104,104V64h56v40ZM88,64v40H32V64ZM80,200a16,16,0,1,1,16-16A16,16,0,0,1,80,200Zm112,0a16,16,0,1,1,16-16A16,16,0,0,1,192,200Zm31-24a32,32,0,0,0-62,0H111a32,32,0,0,0-62,0H32V120H240v56Z"/>',
   },
   {
     title: "Atividades de Verão",
+    slug: "atividades-de-verao",
     text: "Praia, passeios, piqueniques e muito mais: lazer e convívio que criam memórias inesquecíveis.",
     yellow: true,
     icon: '<path d="M192,144a64.33,64.33,0,0,1-2,16H66a64,64,0,1,1,126-16Z" opacity="0.2"/><path d="M240,152H199.55a73.54,73.54,0,0,0,.45-8,72,72,0,0,0-144,0,73.54,73.54,0,0,0,.45,8H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM72,144a56,56,0,1,1,111.41,8H72.59A56.13,56.13,0,0,1,72,144Zm144,56a8,8,0,0,1-8,8H48a8,8,0,0,1,0-16H208A8,8,0,0,1,216,200ZM72.84,43.58a8,8,0,0,1,14.32-7.16l8,16a8,8,0,0,1-14.32,7.16Zm-56,48.84a8,8,0,0,1,10.74-3.57l16,8a8,8,0,0,1-7.16,14.31l-16-8A8,8,0,0,1,16.84,92.42Zm192,15.16a8,8,0,0,1,3.58-10.73l16-8a8,8,0,1,1,7.16,14.31l-16,8a8,8,0,0,1-10.74-3.58Zm-48-55.16,8-16a8,8,0,0,1,14.32,7.16l-8,16a8,8,0,1,1-14.32-7.16Z"/>',
@@ -222,6 +229,10 @@ export const faq = [
   {
     q: "Qual é a dimensão dos grupos?",
     a: "Trabalhamos em grupos pequenos para garantir atenção personalizada. Assim cada aluno é acompanhado de perto e sente-se à vontade para colocar dúvidas.",
+  },
+  {
+    q: "O Bloco de Notas é um ATL?",
+    a: "Muitos pais procuram-nos como ATL, e o dia a dia é parecido: ficamos com o seu filho depois das aulas, das 7h30 às 19h00, com transporte da escola, almoço e lanche. A diferença é que somos um centro de estudos: esse tempo é passado a fazer os trabalhos e a estudar com professores, em grupos pequenos. Explicamos as diferenças no blog, no artigo «Centro de estudos ou ATL: diferenças e como escolher».",
   },
   {
     q: "Como comunicam com os pais?",

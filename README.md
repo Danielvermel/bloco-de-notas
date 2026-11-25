@@ -21,12 +21,13 @@ src/
   content/blog/    artigos do blog, um ficheiro Markdown por artigo
   content.config.js  campos obrigatórios de cada artigo (fontes, crédito da foto…)
   data/site.js     conteúdo do site — moradas, serviços, testemunhos, FAQ…
+  data/servicos.js texto das páginas de serviço (/servicos/<slug>)
   data/blog.js     lista dos artigos publicados, datas e tempo de leitura
   data/schema.js   JSON-LD partilhado: o negócio (@id /#business), o site e cada página
   layouts/         estrutura HTML partilhada (meta tags, JSON-LD, tipos de letra)
   components/      cabeçalho, rodapé e as secções da página inicial
   pages/           index.astro · privacidade.astro · 404.astro · blog.astro ·
-                   blog/[slug].astro · sitemap.xml.js e llms.txt.js
+                   blog/[slug].astro · servicos/[slug].astro · sitemap.xml.js e llms.txt.js
                    (gerados, incluem os artigos publicados)
 astro.config.mjs   configuração do build
 wrangler.toml      configuração da Cloudflare (serve ./dist)
@@ -69,6 +70,13 @@ se faltar algum destes campos.
 - O `sitemap.xml` é gerado no build e inclui os artigos publicados.
 - Ao rever um artigo, acrescente `updated: AAAA-MM-DD` ao cabeçalho: a data
   aparece no artigo e segue para o Google (`dateModified`, sitemap).
+
+## Documentação
+
+- [`docs/diagnostico-marketing-ads2grow-2026-11.md`](docs/diagnostico-marketing-ads2grow-2026-11.md)
+  — diagnóstico de marketing digital da ADS2GROW (24/11/2026): o que falta no
+  site (medição, páginas por serviço, escolas do transporte), concorrência,
+  pesquisas dos pais, sazonalidade e oportunidades.
 
 ## Formulário de contacto
 
