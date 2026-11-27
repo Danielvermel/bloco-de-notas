@@ -77,6 +77,9 @@ se faltar algum destes campos.
   — diagnóstico de marketing digital da ADS2GROW (24/11/2026): o que falta no
   site (medição, páginas por serviço, escolas do transporte), concorrência,
   pesquisas dos pais, sazonalidade e oportunidades.
+- [`docs/plano-artigos-2027.md`](docs/plano-artigos-2027.md) — calendário
+  editorial do blog de dezembro de 2026 a dezembro de 2027: artigos ligados ao
+  calendário escolar, feriados e provas, e um top 5 / top 10 por mês.
 
 ## Formulário de contacto
 
